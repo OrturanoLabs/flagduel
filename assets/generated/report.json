@@ -1,0 +1,1776 @@
+[
+  {
+    "code": "ad",
+    "included": true,
+    "assetPath": "assets/flags-flat/ad.svg",
+    "digest": "8b5e348306d3219ab5cf391f55bae643b42757bca42a87f81679054e4aec87ec",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 6,
+    "area": 59999.99396849164
+  },
+  {
+    "code": "ae",
+    "included": true,
+    "assetPath": "assets/flags/ae.svg",
+    "digest": "11de0ec09db4008a8d323c1c2082268d8df92746f66a81410f1891ca2f7faa49",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "af",
+    "included": true,
+    "assetPath": "assets/flags-flat/af.svg",
+    "digest": "5c55868f26ffc1de16de521677c3a3c023ec0e6478c72d3f5721e88c10ad249d",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 4,
+    "area": 59999.99399999999
+  },
+  {
+    "code": "ag",
+    "included": true,
+    "assetPath": "assets/flags/ag.svg",
+    "digest": "7ee8f40b40b12de2e19e26c02cf896a114b5fe4ac4a05b0a7a2e2916e2a08772",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 60000.000118439195
+  },
+  {
+    "code": "al",
+    "included": true,
+    "assetPath": "assets/flags/al.svg",
+    "digest": "d8ecb2a451d47680f16c9802dc31c49affabb414bdb5d40470240aeab8d72a09",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59999.99987362267
+  },
+  {
+    "code": "am",
+    "included": true,
+    "assetPath": "assets/flags/am.svg",
+    "digest": "e82ba637b5bbf57a996f07faf123eb6d30cbffb5de4a416fce3a5362ac1c18b7",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "ao",
+    "included": true,
+    "assetPath": "assets/flags/ao.svg",
+    "digest": "40cb1bce423641cc30427a55f78d6b2772f1ebf0733800f45bab68b87b2a2dc0",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 60000.00045108995
+  },
+  {
+    "code": "ar",
+    "included": true,
+    "assetPath": "assets/flags/ar.svg",
+    "digest": "6f80f4558ed07e105c89dd1229e9abcc7aeae43379f29ee9e1c58fbd2066742e",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59997.64696783559
+  },
+  {
+    "code": "at",
+    "included": true,
+    "assetPath": "assets/flags/at.svg",
+    "digest": "4329dcddbf6cd29ce128628d7348613966b4a41867a59d7b314edb5d6f9e3c1b",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "au",
+    "included": true,
+    "assetPath": "assets/flags/au.svg",
+    "digest": "51ca56de15f6a14344ab6ddec82817a916f613d69d25470934859bbed5d815eb",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.000000000015
+  },
+  {
+    "code": "az",
+    "included": true,
+    "assetPath": "assets/flags/az.svg",
+    "digest": "4b3ed6ed13d26b3670a28d0716d9b73dc0ce8c91604524951f69027880f41f69",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59990.62504973677
+  },
+  {
+    "code": "ba",
+    "included": true,
+    "assetPath": "assets/flags/ba.svg",
+    "digest": "4302d391ab0cd7285350ed68d3b0feffb408b0b14c30cee430f7042d5494167f",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59994.14031239999
+  },
+  {
+    "code": "bb",
+    "included": true,
+    "assetPath": "assets/flags/bb.svg",
+    "digest": "355498f3f3b2921cb77f59d64165c8fcc6e13ee1cde584920ff27c600b3067e9",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59999.999993311285
+  },
+  {
+    "code": "bd",
+    "included": true,
+    "assetPath": "assets/flags/bd.svg",
+    "digest": "180fde9f0563b43e9956bd86bf93fad7586e451d889c30e23d17cec683549693",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "be",
+    "included": true,
+    "assetPath": "assets/flags/be.svg",
+    "digest": "6dc4769a72731d2c8a8f4fd69c2dd403ee054c4fda9c199faf08736d8d4ff946",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "bf",
+    "included": true,
+    "assetPath": "assets/flags/bf.svg",
+    "digest": "540b1844b459f6adbf9d045e3181fbd97994ae64d4bfd677ef9b31fb4a6e648d",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59981.20293162248
+  },
+  {
+    "code": "bg",
+    "included": true,
+    "assetPath": "assets/flags/bg.svg",
+    "digest": "5451e75da41006083ea35818cdd5ac23774504d9cc27e2f872efacb791a8410f",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "bh",
+    "included": true,
+    "assetPath": "assets/flags/bh.svg",
+    "digest": "708ff3aa3e8c35bb4afe18613415cbc468b6aa322f3d3b2377b148705753f1df",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "bi",
+    "included": true,
+    "assetPath": "assets/flags/bi.svg",
+    "digest": "677bb4660cfbabcc3a633a87d1ae432db8d6f7e61480e50b42a99b3287aaa015",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59985.34870623429
+  },
+  {
+    "code": "bj",
+    "included": true,
+    "assetPath": "assets/flags/bj.svg",
+    "digest": "1b7d01e00e906d0f785497d6cefaec5aa94fdedf47a24d276e788d282c84417d",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59997.29753063435
+  },
+  {
+    "code": "bn",
+    "included": true,
+    "assetPath": "assets/flags/bn.svg",
+    "digest": "61700efba3a553e008b6cf4f2f9aeb13679214a83db67581c8aee8881b5b4bba",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99379790683
+  },
+  {
+    "code": "bo",
+    "included": true,
+    "assetPath": "assets/flags-flat/bo.svg",
+    "digest": "3b627cf73303118ee6cc12bb4aa526619b556e27445cbc427db1ecc9434b99d0",
+    "variant": "flat-simplified",
+    "originalLimitation": "Fill rule non normalizzabile",
+    "regions": 3,
+    "area": 59999.994
+  },
+  {
+    "code": "br",
+    "included": true,
+    "assetPath": "assets/flags/br.svg",
+    "digest": "42aa68dc4378b4c840668c28e02224fc1e853604cc21729a4e482405f9dedf12",
+    "variant": "detailed",
+    "regions": 7,
+    "area": 59999.99995002696
+  },
+  {
+    "code": "bs",
+    "included": true,
+    "assetPath": "assets/flags/bs.svg",
+    "digest": "9c3b867fbfa1221719042b0d245d64c2af579818b338bbb4492e050566a14389",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59728.783719322804
+  },
+  {
+    "code": "bt",
+    "included": true,
+    "assetPath": "assets/flags-flat/bt.svg",
+    "digest": "9853ad5f262ab388ed966cc23e2d7621533e0ada7ab1adc2c891fc04d68e58c9",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 3,
+    "area": 59999.993970275515
+  },
+  {
+    "code": "bw",
+    "included": true,
+    "assetPath": "assets/flags/bw.svg",
+    "digest": "3473dce3260b7d834f5cbc46be242c893c5c568523ff09b5c5de95d7dff29738",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "by",
+    "included": true,
+    "assetPath": "assets/flags/by.svg",
+    "digest": "bed922987fc1cc0a874df8623c118ff8d9261f75586f6e591091b4e5cb2dfd97",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.000000000015
+  },
+  {
+    "code": "bz",
+    "included": true,
+    "assetPath": "assets/flags-flat/bz.svg",
+    "digest": "409cd2bd84f3bc4b3508f49c8931a0fc71bf027e91eceade3682cadbcf28483b",
+    "variant": "flat-simplified",
+    "originalLimitation": "Elemento attivo o paint non piatto non supportato",
+    "regions": 6,
+    "area": 59999.993997895705
+  },
+  {
+    "code": "ca",
+    "included": true,
+    "assetPath": "assets/flags/ca.svg",
+    "digest": "d51ed81c53bb8fa99efa72d4b7e144c421e61f906ee50b17e9034bcad3b1e503",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59995.316999999995
+  },
+  {
+    "code": "cd",
+    "included": true,
+    "assetPath": "assets/flags/cd.svg",
+    "digest": "0d5847cda6e96c567adb5b4d183c84c05039b30c9933fe1629fa0cf95e2daf7a",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "cf",
+    "included": true,
+    "assetPath": "assets/flags/cf.svg",
+    "digest": "b1a14d7976acd2f70b0b2ef0d08d0f5d87f8deaad1f3c0d07870569bf9a89e90",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59999.99992542475
+  },
+  {
+    "code": "cg",
+    "included": true,
+    "assetPath": "assets/flags/cg.svg",
+    "digest": "f021b617dae605681e3a4f53d301217ef686f17260dd9a814e75f3a16a1de3f2",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.000000000015
+  },
+  {
+    "code": "ch",
+    "included": true,
+    "assetPath": "assets/flags/ch.svg",
+    "digest": "61848ccce645f64411fc13d167da374f5bdd04eefbdbac397fec6a03216d015e",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "ci",
+    "included": true,
+    "assetPath": "assets/flags/ci.svg",
+    "digest": "177081e3125e2f5bc54c70650744347baed66009223b97b7c03f70c7e4d83069",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.00000000001
+  },
+  {
+    "code": "cl",
+    "included": true,
+    "assetPath": "assets/flags/cl.svg",
+    "digest": "1e0fafaf97bfd0c7561b357616e473a3a83a12663054dca819c414903315678e",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "cm",
+    "included": true,
+    "assetPath": "assets/flags/cm.svg",
+    "digest": "0ceefbc0149de71c2bde15325c8a3f0c2636ef63044882d05348ce0f16745f2e",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "cn",
+    "included": true,
+    "assetPath": "assets/flags/cn.svg",
+    "digest": "21e9d566d5ffbe3ab16e2288bda7a5f975ee98ceada1cfcda4e3c31da226a75c",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "co",
+    "included": true,
+    "assetPath": "assets/flags/co.svg",
+    "digest": "a6d2b98ab879127aa26cabe5264e68f7d4ffb3abb6c8820208e63f8dccac3520",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "cr",
+    "included": true,
+    "assetPath": "assets/flags/cr.svg",
+    "digest": "f33077561c2a298722f130ed93e96bef0dd26853d1e311ca9140453fbfdead83",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "cu",
+    "included": true,
+    "assetPath": "assets/flags/cu.svg",
+    "digest": "04b1f20d518a443c35b4dab93a8a501e7b4872a6feba9c3655b25a79f722af64",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.000010937234
+  },
+  {
+    "code": "cv",
+    "included": true,
+    "assetPath": "assets/flags/cv.svg",
+    "digest": "5969dfda134776d6d4d92d673e663ff88480c3815317a626122923eccceb7343",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59981.30179157901
+  },
+  {
+    "code": "cy",
+    "included": true,
+    "assetPath": "assets/flags/cy.svg",
+    "digest": "ad6a75bd67dc3331eb9d48da56003c1c0778921cbc46210cc80284c31d935384",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.00005342736
+  },
+  {
+    "code": "cz",
+    "included": true,
+    "assetPath": "assets/flags/cz.svg",
+    "digest": "a8c6b07164decbd790be053f321cebd912596bf88eb2fa09870fcf382995e086",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "de",
+    "included": true,
+    "assetPath": "assets/flags/de.svg",
+    "digest": "8506e5fc81fb444691cc15e3262ce72f6c3da1191c0d2e4034920b1fa25f084b",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "dj",
+    "included": true,
+    "assetPath": "assets/flags/dj.svg",
+    "digest": "2d1c099581da8ab9ae217755604193d9a76f70223b8ab197e239a301ef08509b",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.9999101368
+  },
+  {
+    "code": "dk",
+    "included": true,
+    "assetPath": "assets/flags/dk.svg",
+    "digest": "eca1dec862eb113beb6b05b343804362319b0b88fabf4069d2a6a5982205a548",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "dm",
+    "included": true,
+    "assetPath": "assets/flags/dm.svg",
+    "digest": "5d37bc7869e18b36f446a49b77d29f4220e426dc4fc5f002b63bf457cf647996",
+    "variant": "detailed",
+    "regions": 12,
+    "area": 60000.00160670333
+  },
+  {
+    "code": "do",
+    "included": true,
+    "assetPath": "assets/flags/do.svg",
+    "digest": "4073783879d789f37e8d253eb31e4aa31f9eb9acb6ab15eb414571443ec053a7",
+    "variant": "detailed",
+    "regions": 15,
+    "area": 59999.99831433818
+  },
+  {
+    "code": "dz",
+    "included": true,
+    "assetPath": "assets/flags-flat/dz.svg",
+    "digest": "62163207320575b35d9add3ddc2717795b74fb9408005dbd00b93469b407f721",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 3,
+    "area": 59999.993660243046
+  },
+  {
+    "code": "ec",
+    "included": true,
+    "assetPath": "assets/flags-flat/ec.svg",
+    "digest": "a252822ee826e270c917495eb6da68e90506477eb48eb5c5a1f591fb795971a8",
+    "variant": "flat-simplified",
+    "originalLimitation": "Differenze nel confronto visivo dello stemma dettagliato",
+    "regions": 6,
+    "area": 59999.9938681183
+  },
+  {
+    "code": "ee",
+    "included": true,
+    "assetPath": "assets/flags/ee.svg",
+    "digest": "8b835bb2445be1ecfcf7421b0eea85eca7995f72b366368dc1cb3c43f0c289b4",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "eg",
+    "included": true,
+    "assetPath": "assets/flags/eg.svg",
+    "digest": "0ace570d6f0302d4502bfe76ff886c9cb5065f2938c1d1025e8f614be0a15518",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.0002581056
+  },
+  {
+    "code": "er",
+    "included": true,
+    "assetPath": "assets/flags/er.svg",
+    "digest": "8edcb52c329a3b8673191c2c5c5b529c2d6752c32ffff4821067ccb951ea4afa",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.999928930134
+  },
+  {
+    "code": "es",
+    "included": true,
+    "assetPath": "assets/flags-flat/es.svg",
+    "digest": "51ffac02f1f5a65e8e2a3d061ff44a404296bebc322ee7eb51df45a373879d8d",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 4,
+    "area": 59999.999933333296
+  },
+  {
+    "code": "et",
+    "included": true,
+    "assetPath": "assets/flags/et.svg",
+    "digest": "db5f550d77a55622333328f63c4abaa9575b3eb965b8c9782194f95206d79a68",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.999602645985
+  },
+  {
+    "code": "fi",
+    "included": true,
+    "assetPath": "assets/flags/fi.svg",
+    "digest": "e2677312409ff1610977cb08f8d54922d638c955f2b06be6ea3f2b493e9e7799",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "fj",
+    "included": true,
+    "assetPath": "assets/flags/fj.svg",
+    "digest": "2db246064a033f1de0765312cdb4158abb088c1c325fae38280f6b5f4a66ecb5",
+    "variant": "detailed",
+    "regions": 11,
+    "area": 59999.99983760988
+  },
+  {
+    "code": "fm",
+    "included": true,
+    "assetPath": "assets/flags/fm.svg",
+    "digest": "5ebd54212e2cdc9cca9bd1d7024d7210d2da8ae50e1e02432aeae1913d21fdae",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "fr",
+    "included": true,
+    "assetPath": "assets/flags/fr.svg",
+    "digest": "99f7abee0bcb8e67fda0ad80d2b2d765c67f8503bce4d89970aa23ccd1784b0e",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "ga",
+    "included": true,
+    "assetPath": "assets/flags/ga.svg",
+    "digest": "1293366f9c738237046bffb2deb80a7b50668bdaf2b86c963c48a2598c7fcd66",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "gb",
+    "included": true,
+    "assetPath": "assets/flags/gb.svg",
+    "digest": "780a9ece0e65e3568cc1f73f4929b04babc409daf557a0c1a99eef0bc89f896c",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.00000000001
+  },
+  {
+    "code": "gd",
+    "included": true,
+    "assetPath": "assets/flags/gd.svg",
+    "digest": "e5817d06c7255d30368bf8219046596484ed101deed830a9a95fbe48e317bd3c",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.00118854332
+  },
+  {
+    "code": "ge",
+    "included": true,
+    "assetPath": "assets/flags/ge.svg",
+    "digest": "081e6e41e66c63e669a1d4aca7cb01dbb1b647c60ea914d9a6a39f7f883f0847",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "gh",
+    "included": true,
+    "assetPath": "assets/flags/gh.svg",
+    "digest": "fffdb1ce45ce1cdaba0b00eb7794ff0f0ace1c507fa9bdf507395c0908ce9c43",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "gm",
+    "included": true,
+    "assetPath": "assets/flags/gm.svg",
+    "digest": "65fe2a4e26a802cefff7e1719f52ba51c82d4a62b1f9903979fad5ab65299c7c",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59987.49899999999
+  },
+  {
+    "code": "gn",
+    "included": true,
+    "assetPath": "assets/flags/gn.svg",
+    "digest": "30e7ab0be89b0a6067d93f3b4527890fede67e9d87f4dc56756600289fb053b4",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "gq",
+    "included": true,
+    "assetPath": "assets/flags/gq.svg",
+    "digest": "98048fc2c14d4e80f0587705146b7be789ad33cc934129d55e2b4d3a2a301425",
+    "variant": "detailed",
+    "regions": 9,
+    "area": 60000.000178285016
+  },
+  {
+    "code": "gr",
+    "included": true,
+    "assetPath": "assets/flags/gr.svg",
+    "digest": "baf1a290f1193cc780a445c31ee7fa375d12e48e437775078216e09d65dbccee",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59999.998499999994
+  },
+  {
+    "code": "gt",
+    "included": true,
+    "assetPath": "assets/flags-flat/gt.svg",
+    "digest": "d73de8b43589bd3d26fc9dc150275ca83b51f82c046fd6f2420abf4ec0bc9240",
+    "variant": "flat-simplified",
+    "originalLimitation": "Elemento attivo o paint non piatto non supportato",
+    "regions": 4,
+    "area": 59999.99399999999
+  },
+  {
+    "code": "gw",
+    "included": true,
+    "assetPath": "assets/flags/gw.svg",
+    "digest": "434489f4def23e9eda4705f67c4dced5b421046f8716abd60e2f949547200f18",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "gy",
+    "included": true,
+    "assetPath": "assets/flags/gy.svg",
+    "digest": "7fc66bcd5a19d28d616d14aff74ce53bc755a862ed67ca9f081d01e947a20307",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59990.124781612925
+  },
+  {
+    "code": "hn",
+    "included": true,
+    "assetPath": "assets/flags/hn.svg",
+    "digest": "0dc54e3eca84151074ef58bb713547798bba74d64c3dc96919f3e7422519bd9e",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000.00000000001
+  },
+  {
+    "code": "hr",
+    "included": true,
+    "assetPath": "assets/flags-flat/hr.svg",
+    "digest": "33b617c279abeae1a1d3a0f63eeba8706bfde43ab98495c1095918c27c48a0e8",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 4,
+    "area": 59999.99393206234
+  },
+  {
+    "code": "ht",
+    "included": true,
+    "assetPath": "assets/flags-flat/ht.svg",
+    "digest": "7e246293c4c8091577cce780289ce5f772bfb3c3c9a7e790585b5e1cbc9c30ea",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 5,
+    "area": 59999.99442457647
+  },
+  {
+    "code": "hu",
+    "included": true,
+    "assetPath": "assets/flags/hu.svg",
+    "digest": "09f4d9471a59007413a52c7743ca418788c453099ae4c789b569b19d05dde4c5",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "id",
+    "included": true,
+    "assetPath": "assets/flags/id.svg",
+    "digest": "daeb054881bf37bd53336d2056a18b15db2b8a37fd769bb2a56c2d2abdc2eab0",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "ie",
+    "included": true,
+    "assetPath": "assets/flags/ie.svg",
+    "digest": "849296648b3d8432a8d6d918dd2fdd0223887245ec263edad716bd96d6178296",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "il",
+    "included": true,
+    "assetPath": "assets/flags/il.svg",
+    "digest": "93c51b8f44e7f36e0d87a61167687c0772cfa412c76cb48c00ec6eca45171f0a",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59999.9998248447
+  },
+  {
+    "code": "in",
+    "included": true,
+    "assetPath": "assets/flags/in.svg",
+    "digest": "e47af364aebc0996eb580f18df6e77a28dc36aea208c8567474d696d9a918637",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99948411488
+  },
+  {
+    "code": "iq",
+    "included": true,
+    "assetPath": "assets/flags/iq.svg",
+    "digest": "a9cd8de786f80d74e8bfff377049f8f119ea9426be0bdf40c9f1c87bf175aaca",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.00004413884
+  },
+  {
+    "code": "ir",
+    "included": true,
+    "assetPath": "assets/flags/ir.svg",
+    "digest": "398f530fd257b31c87d0b956c486a7576b46f15af190d25b2c615a71fc3595e7",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59994.54323125492
+  },
+  {
+    "code": "is",
+    "included": true,
+    "assetPath": "assets/flags/is.svg",
+    "digest": "1ff7ecf7d720852eeb33721fd5e3820bb7deb31bceae7e82f75d68939223ef97",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "it",
+    "included": true,
+    "assetPath": "assets/flags/it.svg",
+    "digest": "0be0fbb2baa181b0d429442f62cef0cc840ac392db5f3e0f7cb108d4b86751dc",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "jm",
+    "included": true,
+    "assetPath": "assets/flags/jm.svg",
+    "digest": "cc79f8b7a9f5cc7bfa1875464a489758d39f3a571d239ec7d97ab16cb6af9799",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "jo",
+    "included": true,
+    "assetPath": "assets/flags/jo.svg",
+    "digest": "8ceff61b2bcbd5004b97e9986a13f40eb49147a15d0b646370f9a3b47b8cbeb8",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59994.141439686624
+  },
+  {
+    "code": "jp",
+    "included": true,
+    "assetPath": "assets/flags/jp.svg",
+    "digest": "573c91dc359af7207927a4f97521ecdbb4fd15d1c6d5783e0ff32fc484db36d0",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "ke",
+    "included": true,
+    "assetPath": "assets/flags/ke.svg",
+    "digest": "30948c4507f03f853fcf67010cb8739beb63e24525ededc31625e38ca031f0a7",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 60000.000755007815
+  },
+  {
+    "code": "kg",
+    "included": true,
+    "assetPath": "assets/flags/kg.svg",
+    "digest": "25dde4d27a620a0fbc7d01113458ae5f2ac8718a8a86491e7488603a4ac1df2c",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000.00023910876
+  },
+  {
+    "code": "kh",
+    "included": true,
+    "assetPath": "assets/flags-flat/kh.svg",
+    "digest": "22c9150b1ebf824cfef56700ce6bd38c9f4726ac6a95c769176788981b09199a",
+    "variant": "flat-simplified",
+    "originalLimitation": "Area incoerente nel corpus dettagliato con la precisione del motore",
+    "regions": 3,
+    "area": 59999.99399999999
+  },
+  {
+    "code": "ki",
+    "included": true,
+    "assetPath": "assets/flags/ki.svg",
+    "digest": "284ecd0ef8e1958da9dd7f6fd471cc0136f2f721d590b228bdec34f513c80f8e",
+    "variant": "detailed",
+    "regions": 7,
+    "area": 59991.2110783829
+  },
+  {
+    "code": "km",
+    "included": true,
+    "assetPath": "assets/flags/km.svg",
+    "digest": "47d6f399b00e853b220b61e38ee56124f55b1cd9509d0309135d5ff235c8c3a6",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59999.999598529976
+  },
+  {
+    "code": "kn",
+    "included": true,
+    "assetPath": "assets/flags/kn.svg",
+    "digest": "7d7083c810977efebedd1633ac64fb8b04be09554eaf3a5bd954699108f41e8a",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59948.49328372953
+  },
+  {
+    "code": "kp",
+    "included": true,
+    "assetPath": "assets/flags/kp.svg",
+    "digest": "2fd54f7163c41c974fab46506e6d2e67e5dbec9cd1fa6453d1417a146411e6ce",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59994.21507854541
+  },
+  {
+    "code": "kr",
+    "included": true,
+    "assetPath": "assets/flags/kr.svg",
+    "digest": "c976e3452a30164c3f2fcddc04f8fea2996735e541dc3d65558719cfaf9cc1a8",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59996.8741132871
+  },
+  {
+    "code": "kw",
+    "included": true,
+    "assetPath": "assets/flags/kw.svg",
+    "digest": "87085a6254054a3a15103280f6d052ce4a9702008e39e6370e07c7b1a5c6e4af",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.00004074296
+  },
+  {
+    "code": "kz",
+    "included": true,
+    "assetPath": "assets/flags/kz.svg",
+    "digest": "b41e7d79ffe5f77c43566e8b13e49e314c540818705e847195ccc47a2f4feb75",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000.00001711935
+  },
+  {
+    "code": "la",
+    "included": true,
+    "assetPath": "assets/flags/la.svg",
+    "digest": "61b9bd3b34a088fdf52d2580376250cb0c04c838b9297ca8467d5a39500e7dba",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "lb",
+    "included": true,
+    "assetPath": "assets/flags/lb.svg",
+    "digest": "f082b127715c76c9265bafa3c30ff9b07d552b1ffe9d46cea77a4de579c65000",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59994.140271970624
+  },
+  {
+    "code": "lc",
+    "included": true,
+    "assetPath": "assets/flags/lc.svg",
+    "digest": "571f5f9f8d2c52e10b369b3be72513606f6d62e4cd4ace4c6e51b7b3e44e2e48",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99956428776
+  },
+  {
+    "code": "li",
+    "included": true,
+    "assetPath": "assets/flags/li.svg",
+    "digest": "35648612914df8e1f70cbe78f77a5dc1eb57aafdc99115b7b38fd8db5dbe35b6",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59999.998980061166
+  },
+  {
+    "code": "lk",
+    "included": true,
+    "assetPath": "assets/flags/lk.svg",
+    "digest": "548ca619778218115295cafa35d8e3ad38a9aea680ce36fba6deda6777d85544",
+    "variant": "detailed",
+    "regions": 6,
+    "area": 60000.000892454365
+  },
+  {
+    "code": "lr",
+    "included": true,
+    "assetPath": "assets/flags/lr.svg",
+    "digest": "f5c890eccbb0a0e93cd7464b720be0a1ae3dd5dad4d4ff0e2bc1ec27a80fe4a9",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "ls",
+    "included": true,
+    "assetPath": "assets/flags/ls.svg",
+    "digest": "14639470660effa35b3d6416f3189f4bc2d6752bd94ecc131422ac0cb7c86d57",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.999989429685
+  },
+  {
+    "code": "lt",
+    "included": true,
+    "assetPath": "assets/flags/lt.svg",
+    "digest": "cdc9392712be4a2fcdd75045d79d86e4d354f85e474a5d09567c8f8e1e13b8eb",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "lu",
+    "included": true,
+    "assetPath": "assets/flags/lu.svg",
+    "digest": "42e4eab795422a7f52b2152a9aaa1cfc37b0f42a5363f6e7b70ca2debdde6597",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "lv",
+    "included": true,
+    "assetPath": "assets/flags/lv.svg",
+    "digest": "f5b037d9a2d6853124b10449e954fc3972fb4d0997a25da57b5cfab7baa8ddff",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "ly",
+    "included": true,
+    "assetPath": "assets/flags/ly.svg",
+    "digest": "c44df416ab3575f7d1ff7d5ec31caeeb2203944e7b69d1cf3c17a0220cc66869",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59993.998122
+  },
+  {
+    "code": "ma",
+    "included": true,
+    "assetPath": "assets/flags/ma.svg",
+    "digest": "f54c8a95f5fd5be2a2fb6a8dc12c3ce2db23036cf45a4caec84ce167ac49c76e",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "mc",
+    "included": true,
+    "assetPath": "assets/flags/mc.svg",
+    "digest": "9adb661344b1781efce62a2da55a7b73d756a3bc29da0a2ddd816f0dc8b72488",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "md",
+    "included": true,
+    "assetPath": "assets/flags/md.svg",
+    "digest": "68da95ea40df4fdab8eb9de91ffd07dc8346128f9d55c41d6e703c607632089b",
+    "variant": "detailed",
+    "regions": 13,
+    "area": 60000.00115780409
+  },
+  {
+    "code": "me",
+    "included": true,
+    "assetPath": "assets/flags/me.svg",
+    "digest": "cec63f7d1d8c39ba0b2e5a3a7671c29f43722f3eb148bdd9e03e7c8c2a99d9d1",
+    "variant": "detailed",
+    "regions": 7,
+    "area": 60000.00013904333
+  },
+  {
+    "code": "mg",
+    "included": true,
+    "assetPath": "assets/flags/mg.svg",
+    "digest": "158f372c36a5910d2bb22eb272275e7aec115266af5c0c28cbfd473573501e8c",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "mh",
+    "included": true,
+    "assetPath": "assets/flags/mh.svg",
+    "digest": "aa69a472896a971fd4be4d69e2dd9a675cce00e0c9c5c6f5b5a516565521d799",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59991.55755937106
+  },
+  {
+    "code": "mk",
+    "included": true,
+    "assetPath": "assets/flags/mk.svg",
+    "digest": "d7a8973a9ea43589f74b13ed9d77c451dbcc5b70a488e6ef9ebf5e49efb8c0c4",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59999.98825602354
+  },
+  {
+    "code": "ml",
+    "included": true,
+    "assetPath": "assets/flags/ml.svg",
+    "digest": "891769a8e7b7985cc771b3c741cbfa07455cdfeda9ce52738c7cfad70d8c2c2d",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.00000000001
+  },
+  {
+    "code": "mm",
+    "included": true,
+    "assetPath": "assets/flags/mm.svg",
+    "digest": "247a2e22a03f38d02988bc29931b578143009ca007b5ec3b891553e1d868a518",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.00022381554
+  },
+  {
+    "code": "mn",
+    "included": true,
+    "assetPath": "assets/flags/mn.svg",
+    "digest": "94e053f4cb3d9ca9c882cd04a5943ffeb2e3a697ac14083a78b2936b66531f20",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59999.999761080064
+  },
+  {
+    "code": "mr",
+    "included": true,
+    "assetPath": "assets/flags/mr.svg",
+    "digest": "fe4caaa0e7f465363da38beb499a0e5f43bd4e4068a1adc41bc721cbc5daec68",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.0001271248
+  },
+  {
+    "code": "mt",
+    "included": true,
+    "assetPath": "assets/flags/mt.svg",
+    "digest": "468193eac90279f6c9345b67062508e39965be93d8e6cab89c55c47c1b100bff",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.000954687675
+  },
+  {
+    "code": "mu",
+    "included": true,
+    "assetPath": "assets/flags/mu.svg",
+    "digest": "32adb3ccc504cd843ad3257f74a6e3525e157dcb0fffe7dcf50a59e4d256a6cb",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "mv",
+    "included": true,
+    "assetPath": "assets/flags/mv.svg",
+    "digest": "e20bdf96de685ad881f5abbcb2acc778ac347c564e5aea21defe599cf663c1f3",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.00041302745
+  },
+  {
+    "code": "mw",
+    "included": true,
+    "assetPath": "assets/flags/mw.svg",
+    "digest": "50528183de06460f3e93f9b8894807a17eae7d3688c4178b4ebe8dde201ff157",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 60000.00012323166
+  },
+  {
+    "code": "mx",
+    "included": true,
+    "assetPath": "assets/flags-flat/mx.svg",
+    "digest": "1d9facdd13909912adfeab01151e2ee39b45805f46585f195c24480c085408ac",
+    "variant": "flat-simplified",
+    "originalLimitation": "Elemento attivo o paint non piatto non supportato",
+    "regions": 5,
+    "area": 59959.0579918128
+  },
+  {
+    "code": "my",
+    "included": true,
+    "assetPath": "assets/flags/my.svg",
+    "digest": "d97e07d82d47119bd97fed86589a85ab30549d3038755f74a1436acaa4491ba3",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99440319258
+  },
+  {
+    "code": "mz",
+    "included": true,
+    "assetPath": "assets/flags/mz.svg",
+    "digest": "3c3d33ddf132b28d8729714969a19361563bf8442142fdaf2aaef23e386930b2",
+    "variant": "detailed",
+    "regions": 6,
+    "area": 60000.000084832565
+  },
+  {
+    "code": "na",
+    "included": true,
+    "assetPath": "assets/flags/na.svg",
+    "digest": "fb91da8280358b4160b1abeed2cefcc502e8d348986faf4ec6162bb16ead1851",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 60000
+  },
+  {
+    "code": "ne",
+    "included": true,
+    "assetPath": "assets/flags/ne.svg",
+    "digest": "efa57c059cb2436ed19b96ba1cd3d749b1f70d9e5bfb8b0a8022a257c92a48b0",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "ng",
+    "included": true,
+    "assetPath": "assets/flags/ng.svg",
+    "digest": "4b77945f2e496d5f02e15ed1020ce7d13408f56c8d3c9be27b2d0cf1bbe88649",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "ni",
+    "included": true,
+    "assetPath": "assets/flags-flat/ni.svg",
+    "digest": "d4b9c26c44b08c359012de0420a19c3b56a64820cdfe981c8160c30fa1eec26f",
+    "variant": "flat-simplified",
+    "originalLimitation": "Elemento attivo o paint non piatto non supportato",
+    "regions": 7,
+    "area": 59999.993947575196
+  },
+  {
+    "code": "nl",
+    "included": true,
+    "assetPath": "assets/flags/nl.svg",
+    "digest": "277c17cd8e54b42d252561449eef5108b3ffcc3fac3a27b7e4809aa206409bc9",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "no",
+    "included": true,
+    "assetPath": "assets/flags/no.svg",
+    "digest": "37085814fb270cfd19a683418156201b1f4582e3f44b4275f7232bc45ee1cb11",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "np",
+    "included": true,
+    "assetPath": "assets/flags/np.svg",
+    "digest": "4f847fbd52e4982a3f8ef137d0d5b72c9f7409cb9e69c81948b76449af140ca9",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 21531.230678163505
+  },
+  {
+    "code": "nr",
+    "included": true,
+    "assetPath": "assets/flags/nr.svg",
+    "digest": "dd7c72348333179d3db836aa3c37b843278d732e13ec3c4ec527383fc242bde0",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 59998.24221084999
+  },
+  {
+    "code": "nz",
+    "included": true,
+    "assetPath": "assets/flags/nz.svg",
+    "digest": "c9d0a4ec08b4fee609b7a76345294c85f1a304f584cb6403ce6096ef5114b27a",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59999.999999541746
+  },
+  {
+    "code": "om",
+    "included": true,
+    "assetPath": "assets/flags/om.svg",
+    "digest": "65b65b7a4035bef554c41efcfc3a3810e688974bd84eaca6e9e4b4429004560c",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59999.99963991225
+  },
+  {
+    "code": "pa",
+    "included": true,
+    "assetPath": "assets/flags/pa.svg",
+    "digest": "48bf9e19ca0ce796694ecb5bd703953d5e30f12f29333aa7e781d238af984099",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "pe",
+    "included": true,
+    "assetPath": "assets/flags/pe.svg",
+    "digest": "2de73e009b1897f9ff58819908461b756ade08182d3aa017a931c6d806e009a8",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "pg",
+    "included": true,
+    "assetPath": "assets/flags/pg.svg",
+    "digest": "91f5d52e7110a526a5aa08b97a16db1d7820e4ec5f924c5357c94e6e2eb531e3",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59873.45581014904
+  },
+  {
+    "code": "ph",
+    "included": true,
+    "assetPath": "assets/flags/ph.svg",
+    "digest": "6b8df741f0bc16e04f1e69f3580cac150edac64f0038b08d1d74347e1cccb21c",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.00000447067
+  },
+  {
+    "code": "pk",
+    "included": true,
+    "assetPath": "assets/flags/pk.svg",
+    "digest": "aa190a62e13ec2890bdb52df1a48a28617214d0a2a35cd378a3e24edb8c9b7ec",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59991.20999482595
+  },
+  {
+    "code": "pl",
+    "included": true,
+    "assetPath": "assets/flags/pl.svg",
+    "digest": "7112c38b39032c10a17f4fca34d66d8499b34a2f6627004fa76aeca72d2adb2d",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "pt",
+    "included": true,
+    "assetPath": "assets/flags/pt.svg",
+    "digest": "24fb95cc4a396386e342a97a1091283dab604c1215eff80d54a6eaad07e2d1bd",
+    "variant": "detailed",
+    "regions": 7,
+    "area": 59999.998670020264
+  },
+  {
+    "code": "pw",
+    "included": true,
+    "assetPath": "assets/flags/pw.svg",
+    "digest": "7661606bf156e3272caad66aebb099871490903bbcd333c558b0cf0367fcc5ad",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000.00004221166
+  },
+  {
+    "code": "py",
+    "included": true,
+    "assetPath": "assets/flags/py.svg",
+    "digest": "3846fabd643d3dbf364d30ef76668c782252638c1fc5fa444438e6ba0a103352",
+    "variant": "detailed",
+    "regions": 6,
+    "area": 59999.999999806416
+  },
+  {
+    "code": "qa",
+    "included": true,
+    "assetPath": "assets/flags/qa.svg",
+    "digest": "0f1f95695aadb713fb572bf2f6b24df2df9c3f44e7215d52562ed94d34abcc7f",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "ro",
+    "included": true,
+    "assetPath": "assets/flags/ro.svg",
+    "digest": "3f33a99aac0ad726bba275f9fc84abf069d84c96561591d74bd7273c904ab8f0",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "rs",
+    "included": true,
+    "assetPath": "assets/flags-flat/rs.svg",
+    "digest": "a15f9abdb9c7692db27e177042adcbc97674062352c6ef586d2ff641f03a3c3b",
+    "variant": "flat-simplified",
+    "originalLimitation": "Operazione vettoriale fallita",
+    "regions": 4,
+    "area": 59999.994044771265
+  },
+  {
+    "code": "ru",
+    "included": true,
+    "assetPath": "assets/flags/ru.svg",
+    "digest": "8196dc6b31ca063ba24333f720e9f41001553699d2dee9fc6ca1ffb7f7f88991",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "rw",
+    "included": true,
+    "assetPath": "assets/flags/rw.svg",
+    "digest": "40bd9c50300f9c30e8a8a4fac52ce5f48927b7df39aafe35d0e262020ab7ae44",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.00090148921
+  },
+  {
+    "code": "sa",
+    "included": true,
+    "assetPath": "assets/flags/sa.svg",
+    "digest": "5e7265e82416438c9c19882f218af184ff11b81cffacb4d14bd5ec2708041b98",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59994.140471508064
+  },
+  {
+    "code": "sb",
+    "included": true,
+    "assetPath": "assets/flags/sb.svg",
+    "digest": "bd0d80b5eff691150d969c302cab144c36e78c5872e236bf87efc25917aee0a7",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "sc",
+    "included": true,
+    "assetPath": "assets/flags/sc.svg",
+    "digest": "d927be53e2b4870349335725ded60893f051673acd6d2e67896db4d27cf41dad",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 60000
+  },
+  {
+    "code": "sd",
+    "included": true,
+    "assetPath": "assets/flags/sd.svg",
+    "digest": "e8f0260dfbffb4cd0239374e71e0027df66f3f5e3e2f51b2ba702a22365725b5",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99949255614
+  },
+  {
+    "code": "se",
+    "included": true,
+    "assetPath": "assets/flags/se.svg",
+    "digest": "193565185250ec213be5864abc08cc2e7f1d7cb0ab08615641cc18d11148ad65",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "sg",
+    "included": true,
+    "assetPath": "assets/flags/sg.svg",
+    "digest": "c3c59a52ba5e05fcbcfe6caa1c92a9e7508eb5b0de91e8f7f0e7667370a8890b",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "si",
+    "included": true,
+    "assetPath": "assets/flags/si.svg",
+    "digest": "c1e0e6884a3b760b9229856f6bf13fcad9b8f5918770535a93264d63a64cbc0f",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59996.95283128707
+  },
+  {
+    "code": "sk",
+    "included": true,
+    "assetPath": "assets/flags/sk.svg",
+    "digest": "2393e538c8f18fcba6cec0e53b94fe8b448c3060dbb5b1d3e3e7ca4eb51e6b99",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000.02750082491
+  },
+  {
+    "code": "sl",
+    "included": true,
+    "assetPath": "assets/flags/sl.svg",
+    "digest": "4f55526e7c28db456e755851a965243aedc7c02a6a5dbdb5d587c1ee3ddd1a37",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "sm",
+    "included": true,
+    "assetPath": "assets/flags/sm.svg",
+    "digest": "5c29402e7ebb2a4194cdd709874ede991f3268f9d07f522de56eb64eab003715",
+    "variant": "detailed",
+    "regions": 22,
+    "area": 59999.99983841606
+  },
+  {
+    "code": "sn",
+    "included": true,
+    "assetPath": "assets/flags/sn.svg",
+    "digest": "26ce0209241080d15455a6e44436fa5d7abd22006887f15f6db12d06fc5c61e5",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "so",
+    "included": true,
+    "assetPath": "assets/flags/so.svg",
+    "digest": "29287ec9ff32ebf4b83589fcc25d7f3f2650309d36a521456ff92ac04976bf33",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59994.1403124
+  },
+  {
+    "code": "sr",
+    "included": true,
+    "assetPath": "assets/flags/sr.svg",
+    "digest": "6f2e25710c2e968021684cbe6cf24964f7619ae43fbf8907842dde3ec775e5e5",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59990.625
+  },
+  {
+    "code": "ss",
+    "included": true,
+    "assetPath": "assets/flags/ss.svg",
+    "digest": "eb5307ecb5c7de2253bbcb7e4d856e73df8d99cfcefc3b3bb75449cfbac22c20",
+    "variant": "detailed",
+    "regions": 6,
+    "area": 59999.99970000001
+  },
+  {
+    "code": "st",
+    "included": true,
+    "assetPath": "assets/flags/st.svg",
+    "digest": "1b8090e37de90fc83cb908d37cdcc209fc141b73d3e0587d4dd9e30354746c4a",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.000074998694
+  },
+  {
+    "code": "sv",
+    "included": true,
+    "assetPath": "assets/flags-flat/sv.svg",
+    "digest": "b751fbd20070dd013b3f7f91c42b71052c0370bdc016b1592251e5fda58b6b72",
+    "variant": "flat-simplified",
+    "originalLimitation": "Operazione vettoriale fallita",
+    "regions": 4,
+    "area": 59998.77535739474
+  },
+  {
+    "code": "sy",
+    "included": true,
+    "assetPath": "assets/flags/sy.svg",
+    "digest": "a543c68e04d644529aa8d626f1356711433e27b781802062f24aae6b7d90bf93",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "sz",
+    "included": true,
+    "assetPath": "assets/flags/sz.svg",
+    "digest": "b61625642bfea0ebf1adfbc9066a14f47ec5153765b80ebc759c587cb6035eb1",
+    "variant": "detailed",
+    "regions": 7,
+    "area": 59999.99962417161
+  },
+  {
+    "code": "td",
+    "included": true,
+    "assetPath": "assets/flags/td.svg",
+    "digest": "002dcded8fbc6b807ebb5ba67f768ec7d2aa064b0fb75e5860a8d85808f5f2bb",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "tg",
+    "included": true,
+    "assetPath": "assets/flags/tg.svg",
+    "digest": "db99882d8fa042491ecc2845dd05bb2c57b1f13fd7527252a8c6822387cb7bb2",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "th",
+    "included": true,
+    "assetPath": "assets/flags/th.svg",
+    "digest": "46f8782ac1534e448acd405a85b7ef561a3f14d5f634bc63dec3612900789cee",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "tj",
+    "included": true,
+    "assetPath": "assets/flags/tj.svg",
+    "digest": "b4348c4a55c352018f5df2d4cae6c05de54ee2b301c5be5d048e6e6c59783fe3",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99994125968
+  },
+  {
+    "code": "tl",
+    "included": true,
+    "assetPath": "assets/flags/tl.svg",
+    "digest": "0852024303877d28964bb114197831ecd45d73530a07e15cb00b1fa85459e6ab",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "tm",
+    "included": true,
+    "assetPath": "assets/flags-flat/tm.svg",
+    "digest": "4a185aaf127e386dc3a04c88fc9a2d20b26afe91a7560389343690396a946545",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 4,
+    "area": 59998.77533277002
+  },
+  {
+    "code": "tn",
+    "included": true,
+    "assetPath": "assets/flags/tn.svg",
+    "digest": "1168599c680cf03dae5f61f66eb13e83f70c46258d8b73771bf1c9796f5e8577",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000.00014110348
+  },
+  {
+    "code": "to",
+    "included": true,
+    "assetPath": "assets/flags/to.svg",
+    "digest": "a8f9a57db209db8e02ab5cf01b0cd87ff3fe730907ca6670322a667ebd51025a",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "tr",
+    "included": true,
+    "assetPath": "assets/flags/tr.svg",
+    "digest": "0faf8f2615fd732337b7398c1528db4dfaa2bb95f4f221b447c73299f4272d18",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59999.99994497859
+  },
+  {
+    "code": "tt",
+    "included": true,
+    "assetPath": "assets/flags/tt.svg",
+    "digest": "f2e00a93804b40f018d56aa2bef6a686cffcbf60fd82b1eb601a9383cce76180",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "tv",
+    "included": true,
+    "assetPath": "assets/flags/tv.svg",
+    "digest": "1c1e27b339c7caf9c23a7553407fb2c3317ac01160be32dabedd845207fd000a",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 59999.999999999985
+  },
+  {
+    "code": "tz",
+    "included": true,
+    "assetPath": "assets/flags/tz.svg",
+    "digest": "67b1f5e5e2d1b84eab25841a7452219cca452ad2052a793082653dddffd4fd4e",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000
+  },
+  {
+    "code": "ua",
+    "included": true,
+    "assetPath": "assets/flags/ua.svg",
+    "digest": "0c1974dd1d892ce602affef485effe6e5a671ffa2c42d7442b93586599edf628",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 60000
+  },
+  {
+    "code": "ug",
+    "included": true,
+    "assetPath": "assets/flags/ug.svg",
+    "digest": "e45f5072d7d4f5c5219697dec497c7446d3b07412eb1cde2e37586442a2aa99d",
+    "variant": "detailed",
+    "regions": 8,
+    "area": 59970.70464807244
+  },
+  {
+    "code": "us",
+    "included": true,
+    "assetPath": "assets/flags-flat/us.svg",
+    "digest": "0b4a4e77a766fc115d151b3952bbc95972f41afcfa71409c05e115d9e8f947f6",
+    "variant": "flat-simplified",
+    "originalLimitation": "Elemento non supportato: marker",
+    "regions": 3,
+    "area": 59999.99399999999
+  },
+  {
+    "code": "uy",
+    "included": true,
+    "assetPath": "assets/flags/uy.svg",
+    "digest": "863c4fdad9efc0821f2ab02c26032c444e6bed8d222fc463028ab80669907d7c",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99597721739
+  },
+  {
+    "code": "uz",
+    "included": true,
+    "assetPath": "assets/flags/uz.svg",
+    "digest": "a9bd1cdbcd9e6310271b28fe8cc4e30448f6b2a373cabaa6972fc12ad9479aab",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.00000390118
+  },
+  {
+    "code": "vc",
+    "included": true,
+    "assetPath": "assets/flags/vc.svg",
+    "digest": "bddb9184373102e78b1940a810407036ec025bc5d7f812e790f396c437af3239",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "ve",
+    "included": true,
+    "assetPath": "assets/flags/ve.svg",
+    "digest": "1ca0b19e3e8b839c3970dfa2c46191a68376fb6f3a11972c2f758cf6a980d615",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 60000.00008100805
+  },
+  {
+    "code": "vn",
+    "included": true,
+    "assetPath": "assets/flags/vn.svg",
+    "digest": "98822db3de9fe162a1a0135fe1f1bb5a237e85f2c09a2d655726c4977e95f68c",
+    "variant": "detailed",
+    "regions": 2,
+    "area": 59994.1403124
+  },
+  {
+    "code": "vu",
+    "included": true,
+    "assetPath": "assets/flags/vu.svg",
+    "digest": "4c5ff929e30b6bb43a239ea3ee38802d5f9c22d4b91d2b3b62d9e1912e683c8e",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99995980452
+  },
+  {
+    "code": "ws",
+    "included": true,
+    "assetPath": "assets/flags/ws.svg",
+    "digest": "50ceb7439a241a60f3e11236608e3016bb153bba90b3d53a901197fa9e8a73f0",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "ye",
+    "included": true,
+    "assetPath": "assets/flags/ye.svg",
+    "digest": "93ff21e4d67dce9bd918da75c77464baf6bf3ec6233d1ac2395ffd1bd809ae1d",
+    "variant": "detailed",
+    "regions": 3,
+    "area": 60000
+  },
+  {
+    "code": "za",
+    "included": true,
+    "assetPath": "assets/flags/za.svg",
+    "digest": "d0f6a24ee70c0e4ca6033edd59bd8a0b88e19c71eeb22091c7908503dbf95f97",
+    "variant": "detailed",
+    "regions": 6,
+    "area": 59985.98449114204
+  },
+  {
+    "code": "zm",
+    "included": true,
+    "assetPath": "assets/flags/zm.svg",
+    "digest": "ea2b3d89667b40850a941857aab5a240ec4221287457c423ee9d6cb2121fedad",
+    "variant": "detailed",
+    "regions": 5,
+    "area": 60000.00008657703
+  },
+  {
+    "code": "zw",
+    "included": true,
+    "assetPath": "assets/flags/zw.svg",
+    "digest": "bcdd76d222f918bb731a7eadaea0c9a1556e689056ffd40ed672401fb62e4e15",
+    "variant": "detailed",
+    "regions": 7,
+    "area": 59968.07706811192
+  },
+  {
+    "code": "ps",
+    "included": true,
+    "assetPath": "assets/flags/ps.svg",
+    "digest": "a52ff5c8277f3b05c61e2f315bfb28a3a528ad30493a9ad5f131cdb2b1cd8379",
+    "variant": "detailed",
+    "regions": 4,
+    "area": 59999.99954999999
+  },
+  {
+    "code": "va",
+    "included": true,
+    "assetPath": "assets/flags-flat/va.svg",
+    "digest": "be398ef1d5c9b3f9b65b5b26d39650349064b2ac823a7822355db1e8502a91f5",
+    "variant": "flat-simplified",
+    "originalLimitation": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+    "regions": 3,
+    "area": 59999.20812719234
+  }
+]

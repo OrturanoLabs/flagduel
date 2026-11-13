@@ -1,0 +1,21 @@
+{
+  "bo": "Fill rule non normalizzabile",
+  "bz": "Elemento attivo o paint non piatto non supportato",
+  "gt": "Elemento attivo o paint non piatto non supportato",
+  "mx": "Elemento attivo o paint non piatto non supportato",
+  "ni": "Elemento attivo o paint non piatto non supportato",
+  "rs": "Operazione vettoriale fallita",
+  "sv": "Operazione vettoriale fallita",
+  "us": "Elemento non supportato: marker",
+  "kh": "Area incoerente nel corpus dettagliato con la precisione del motore",
+  "ec": "Differenze nel confronto visivo dello stemma dettagliato",
+  "dz": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "ht": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "ad": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "bt": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "va": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "tm": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "es": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "hr": "Sorgente dettagliata non supera il controllo geometrico di roundtrip",
+  "af": "Sorgente dettagliata non supera il controllo geometrico di roundtrip"
+}

@@ -1,0 +1,4 @@
+* text=auto
+*.png binary
+# Preserve upstream formatting in collected third-party license texts.
+**/THIRD_PARTY_LICENSES.txt -whitespace

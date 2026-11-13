@@ -1,0 +1,12 @@
+node_modules/
+dist/
+apps/web/dist/
+.env
+playwright-report/
+test-results/
+.DS_Store
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
+CODEX_PROMPT_FLAG_DUEL.md

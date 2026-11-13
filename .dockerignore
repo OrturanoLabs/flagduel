@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+**/dist
+test-results
+playwright-report
+
+.DS_Store
+.env.*
+!.env.example
+CODEX_PROMPT_FLAG_DUEL.md
