@@ -5,6 +5,13 @@ export const colorTolerances = {
   broad: 0.1,
 } as const;
 export type ColorTolerance = keyof typeof colorTolerances;
+export const experimentsSchema = z
+  .object({
+    colorShift: z.boolean(),
+    noMemory: z.boolean(),
+  })
+  .strict();
+export type Experiments = z.infer<typeof experimentsSchema>;
 export const commandSchema = z
   .object({
     type: z.enum([
@@ -14,11 +21,13 @@ export const commandSchema = z
       "start",
       "set_mode",
       "set_tolerance",
+      "set_experiments",
       "probe",
       "solve",
       "pass",
       "ready",
     ]),
+    experiments: experimentsSchema.optional(),
     tolerance: z.enum(["precise", "standard", "broad"]).optional(),
     mode: z.enum(["pvp", "solo"]).optional(),
     nickname: z.string().trim().min(1).max(24).optional(),
@@ -58,6 +67,7 @@ export interface Result {
 export type GameMode = "pvp" | "solo";
 export interface Snapshot {
   mode: GameMode;
+  experiments: Experiments;
   tolerance: ColorTolerance;
   code: string;
   version: number;
@@ -71,7 +81,7 @@ export interface Snapshot {
   history: { country: string; playerId: string; reveal: Region[] }[];
   results: Result[];
   solution?: string;
-  maxProbes: number;
+  maxProbes: number | null;
   turn: number;
 }
 export interface Ack {

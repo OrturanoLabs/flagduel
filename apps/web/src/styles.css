@@ -653,3 +653,51 @@ label {
   max-height: none;
   overflow: visible;
 }
+
+.experimental-options {
+  display: grid;
+  gap: 8px;
+}
+.experimental-switch {
+  justify-content: space-between;
+  font-size: 13px;
+}
+.switch-track {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: 12px;
+  background: var(--line);
+}
+.switch-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.experimental-switch[aria-checked="true"] .switch-track {
+  background: var(--accent);
+}
+.experimental-switch[aria-checked="true"] .switch-track::after {
+  left: 17px;
+  background: #201c2d;
+}
+.experimental-note {
+  color: var(--muted);
+  font-size: 11px;
+}
+.attempts.names-only {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: none;
+  overscroll-behavior: contain;
+}
+.names-only .attempt {
+  flex: 0 0 auto;
+  min-height: 32px;
+}

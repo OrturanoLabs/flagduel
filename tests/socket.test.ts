@@ -182,3 +182,103 @@ it("singolo via Socket.IO: lobby, blocco ingressi, tentativo e rientro senza res
     await new Promise<void>((r) => io.close(() => r()));
   }
 }, 15000);
+
+it("esperimenti via Socket.IO: toggle sincronizzati, permessi e colori conservati al rientro", async () => {
+  const { http, io, rooms } = createApp();
+  await new Promise<void>((r) => http.listen(0, "127.0.0.1", r));
+  const url = `http://127.0.0.1:${(http.address() as { port: number }).port}`;
+  const sockets: Socket[] = [];
+  async function connect() {
+    const socket = client(url, {
+      forceNew: true,
+      reconnection: false,
+      transports: ["websocket"],
+    });
+    sockets.push(socket);
+    await new Promise<void>((r) => socket.on("connect", r));
+    return socket;
+  }
+  try {
+    const a = await connect(),
+      b = await connect();
+    const created = await send(a, { type: "create", nickname: "Ada" });
+    await send(b, {
+      type: "join",
+      nickname: "Bruno",
+      code: created.state!.code,
+    });
+    const g = rooms.get(created.state!.code)!;
+    let guestState: Snapshot | undefined;
+    b.on("state", (state) => {
+      guestState = state;
+    });
+    for (const experiments of [
+      { colorShift: true, noMemory: false },
+      { colorShift: false, noMemory: true },
+      { colorShift: false, noMemory: false },
+      { colorShift: true, noMemory: true },
+    ]) {
+      const updated = await send(a, {
+        type: "set_experiments",
+        experiments,
+        version: g.version,
+      });
+      expect(updated.ok).toBe(true);
+      await expect.poll(() => guestState?.experiments).toEqual(experiments);
+      expect(
+        (
+          await send(b, {
+            type: "set_experiments",
+            experiments,
+            version: g.version,
+          })
+        ).error,
+      ).toContain("Solo il creatore");
+    }
+    expect(
+      (
+        await send(a, {
+          type: "set_experiments",
+          experiments: { colorShift: "true", noMemory: true } as never,
+          version: g.version,
+        })
+      ).error,
+    ).toBe("Richiesta non valida");
+    await send(a, { type: "start", version: g.version });
+    const active = g.active === created.playerId ? a : b;
+    const probe = await send(active, {
+      type: "probe",
+      country: g.catalog.find((f) => f.code !== g.secret)!.code,
+      version: g.version,
+    });
+    expect(probe.state!.maxProbes).toBeNull();
+    expect(probe.state!.history[0].reveal).toEqual([]);
+    await expect.poll(() => guestState?.reveal).toEqual(probe.state!.reveal);
+    const shift = { ...g.roundColorShift! };
+    a.disconnect();
+    const restored = await connect();
+    const resumed = await send(restored, {
+      type: "resume",
+      token: created.token,
+    });
+    expect(resumed.state!.experiments).toEqual({
+      colorShift: true,
+      noMemory: true,
+    });
+    expect(resumed.state!.history).toEqual(probe.state!.history);
+    expect(resumed.state!.reveal).toEqual(probe.state!.reveal);
+    expect(g.roundColorShift).toEqual(shift);
+    expect(
+      (
+        await send(restored, {
+          type: "set_experiments",
+          experiments: { colorShift: false, noMemory: false },
+          version: g.version,
+        })
+      ).error,
+    ).toContain("lobby");
+  } finally {
+    sockets.forEach((s) => s.disconnect());
+    await new Promise<void>((r) => io.close(() => r()));
+  }
+}, 15000);

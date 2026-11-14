@@ -2,6 +2,7 @@ import {
   colorTolerances,
   type ColorTolerance,
 } from "../../../packages/shared/src/index";
+import { randomColorShift, shiftColor, type ColorShift } from "./color-shift";
 import { randomInt, randomBytes } from "node:crypto";
 import type {
   Command,
@@ -30,6 +31,11 @@ export class Game {
   version = 0;
   phase: Snapshot["phase"] = "waiting";
   mode: Snapshot["mode"] = "pvp";
+  experiments: Snapshot["experiments"] = { colorShift: false, noMemory: false };
+  roundColorShift: ColorShift | null = null;
+  get experimental() {
+    return this.experiments.colorShift || this.experiments.noMemory;
+  }
   players: Player[] = [];
   round = 0;
   active = "";
@@ -49,6 +55,7 @@ export class Game {
     public config: Config = defaults,
     private choose: () => number = () => randomInt(catalog.length),
     private coin: () => number = () => randomInt(2),
+    private makeColorShift: () => ColorShift = randomColorShift,
   ) {
     const preset = (Object.keys(colorTolerances) as ColorTolerance[]).find(
       (key) => colorTolerances[key] === config.tolerance,
@@ -76,6 +83,7 @@ export class Game {
     return {
       code: this.code,
       mode: this.mode,
+      experiments: { ...this.experiments },
       tolerance: this.tolerance,
       version: this.version,
       phase: this.phase,
@@ -84,16 +92,28 @@ export class Game {
       hostId: this.hostId,
       active: this.active,
       subphase: this.subphase,
-      reveal: this.revealed.map(({ d, color }) => ({ d, color })),
-      history: this.history.map((h) => ({ ...h })),
+      reveal: this.revealed.map(({ d, color }) => ({
+        d,
+        color:
+          this.phase === "playing" && this.roundColorShift
+            ? shiftColor(color, this.roundColorShift)
+            : color,
+      })),
+      history: this.history.map((h) => ({
+        ...h,
+        reveal: this.experimental ? [] : h.reveal.map((r) => ({ ...r })),
+      })),
       results: this.results.map((r) => ({ ...r })),
       ...(this.phase === "between_rounds" ? { solution: this.secret } : {}),
-      maxProbes: this.config.maxProbes,
+      maxProbes: this.experimental ? null : this.config.maxProbes,
       turn: this.turn,
     };
   }
   next() {
     this.round++;
+    this.roundColorShift = this.experiments.colorShift
+      ? { ...this.makeColorShift() }
+      : null;
     this.secret = this.catalog[this.choose()].code;
     this.active =
       this.players[(this.first + this.round - 1) % this.players.length].id;
@@ -111,7 +131,7 @@ export class Game {
     this.players.forEach((p) => (p.ready = false));
   }
   pass() {
-    if (this.history.length >= this.config.maxProbes)
+    if (!this.experimental && this.history.length >= this.config.maxProbes)
       this.end(null, "Limite sonde raggiunto");
     else {
       this.active = this.players.find((p) => p.id !== this.active)!.id;
@@ -126,7 +146,19 @@ export class Game {
     this.seen.set(id, seen);
     if (seen.has(c.actionId)) return;
     if (c.version !== this.version) throw Error("Stato aggiornato: riprova");
-    if (c.type === "set_tolerance") {
+    if (c.type === "set_experiments") {
+      if (id !== this.hostId)
+        throw Error("Solo il creatore può scegliere gli esperimenti");
+      if (this.phase !== "waiting")
+        throw Error("Gli esperimenti si scelgono nella lobby");
+      if (
+        !c.experiments ||
+        typeof c.experiments.colorShift !== "boolean" ||
+        typeof c.experiments.noMemory !== "boolean"
+      )
+        throw Error("Seleziona esperimenti validi");
+      this.experiments = { ...c.experiments };
+    } else if (c.type === "set_tolerance") {
       if (id !== this.hostId)
         throw Error("Solo il creatore può scegliere la tolleranza");
       if (this.phase !== "waiting")
@@ -176,7 +208,7 @@ export class Game {
         if (
           this.subphase !== "choose_probe" ||
           this.history.some((h) => h.country === country) ||
-          this.history.length >= this.config.maxProbes
+          (!this.experimental && this.history.length >= this.config.maxProbes)
         )
           throw Error("Sonda non consentita");
         const matched = reveal(
@@ -196,14 +228,19 @@ export class Game {
             this.mode === "solo" ? "Risposta corretta" : "Sonda esatta",
           );
         else {
-          this.revealed = reveal(
-            this.catalog.find((f) => f.code === country)!.regions,
-            this.catalog.find((f) => f.code === this.secret)!.regions,
-            this.revealed,
-            colorTolerances[this.tolerance],
-          );
+          this.revealed = this.experiments.noMemory
+            ? matched
+            : reveal(
+                this.catalog.find((f) => f.code === country)!.regions,
+                this.catalog.find((f) => f.code === this.secret)!.regions,
+                this.revealed,
+                colorTolerances[this.tolerance],
+              );
           if (this.mode === "solo") {
-            if (this.history.length >= this.config.maxProbes)
+            if (
+              !this.experimental &&
+              this.history.length >= this.config.maxProbes
+            )
               this.end(null, "Tentativi esauriti");
             else {
               this.subphase = "choose_probe";

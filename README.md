@@ -49,6 +49,16 @@ Ci sono sei sonde distinte per mano; dopo la sesta si può ancora risolvere, men
 
 Durante il gioco la digitazione va nella barra Paese anche senza focus, quando il campo è abilitato. **Invio a campo vuoto non fa nulla; con testo da completare seleziona il risultato migliore; con un nome già selezionato lo invia.** I menu aperti, gli altri campi di testo e le scorciatoie del browser mantengono i propri comandi. Il selettore mostra solo i nomi; la cronologia mostra le sonde già giocate e le regioni trovate. L’interfaccia obsidian è pensata per smartphone, senza scroll della pagina di gioco.
 
+## Modalità sperimentali
+
+Nella lobby apri **Impostazioni avanzate → Sperimentali**. Il creatore può attivare **Color Shift** e **No Memory** indipendentemente, anche insieme. L'ospite vede la selezione aggiornata nel riepilogo della lobby. Le opzioni sono disponibili sia in singolo sia in PvP e rimangono fisse durante la partita.
+
+- **Color Shift**: ogni round usa una nuova rotazione casuale della tonalità e una variazione della luminosità, identiche per entrambi i giocatori e conservate dopo refresh/riconnessione. Le corrispondenze geometriche e la tolleranza continuano a usare i colori originali. A fine round la soluzione torna ai colori originali.
+- **No Memory**: la bandiera principale mostra soltanto le aree riconosciute dall'ultima sonda. Un tentativo senza corrispondenze la svuota completamente.
+- **Almeno un esperimento attivo**: nessun tetto di tentativi; la cronologia conserva solo i nomi, senza bandiere o anteprime degli indizi. La lista scorre al suo interno per mantenere i controlli nella schermata. In singolo il contatore mostra **∞**.
+
+Restano invariati turni, punteggi, Risolvi/Passa in PvP e divieto di ripetere un Paese già testato nello stesso round. «Senza limite» elimina quindi il tetto `MAX_PROBES`, mantenendo il catalogo dei 195 Paesi distinti. Con entrambi gli esperimenti disattivati tornano accumulo, anteprime e limite normale. Dettagli e verifiche in [docs/experimental-modes.md](docs/experimental-modes.md).
+
 ## Sviluppo
 
 ```sh

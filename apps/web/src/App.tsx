@@ -442,6 +442,14 @@ export default function App() {
   const game = useGame();
   const snap = game.snapshot;
   const solo = snap?.mode === "solo";
+  const experimental = !!(
+    snap?.experiments.colorShift || snap?.experiments.noMemory
+  );
+  const historyPanel = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (experimental && historyPanel.current)
+      historyPanel.current.scrollTop = historyPanel.current.scrollHeight;
+  }, [experimental, snap?.history.length]);
   const [dialog, setDialog] = useState<"create" | "join" | null>(() =>
     new URLSearchParams(location.search).has("room") ? "join" : null,
   );
@@ -836,7 +844,9 @@ export default function App() {
             <>
               <h1 className="solo-title">Gioca da solo</h1>
               <p className="waiting-host">
-                {snap.maxProbes} tentativi per indovinare.
+                {snap.maxProbes === null
+                  ? "Tentativi senza limite."
+                  : `${snap.maxProbes} tentativi per indovinare.`}
               </p>
             </>
           ) : (
@@ -880,6 +890,8 @@ export default function App() {
                   snap.tolerance
                 ]
               }
+              {snap.experiments.colorShift && " · Color Shift"}
+              {snap.experiments.noMemory && " · No Memory"}
             </p>
           )}
           <details className="advanced-settings">
@@ -917,6 +929,46 @@ export default function App() {
                 </button>
               ))}
             </div>
+            <p>Sperimentali</p>
+            <div
+              className="experimental-options"
+              role="group"
+              aria-label="Modalità sperimentali"
+            >
+              {(
+                [
+                  ["colorShift", "Color Shift"],
+                  ["noMemory", "No Memory"],
+                ] as const
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  role="switch"
+                  aria-checked={snap.experiments[key]}
+                  className="secondary experimental-switch"
+                  disabled={
+                    snap.hostId !== me?.id || game.busy || !game.connected
+                  }
+                  onClick={() =>
+                    void game.command("set_experiments", {
+                      experiments: {
+                        ...snap.experiments,
+                        [key]: !snap.experiments[key],
+                      },
+                    })
+                  }
+                >
+                  {label}
+                  <span className="switch-track" aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+            {experimental && (
+              <p className="experimental-note">
+                Tentativi senza limite · cronologia con soli nomi.
+              </p>
+            )}
           </details>
           <div className={`lobby-players ${solo ? "solo-player" : ""}`}>
             <span>
@@ -989,7 +1041,9 @@ export default function App() {
           {solo ? (
             <>
               <strong data-testid="solo-attempts">
-                {snap.maxProbes - snap.history.length}
+                {snap.maxProbes === null
+                  ? "∞"
+                  : snap.maxProbes - snap.history.length}
               </strong>
               <span>tentativi</span>
             </>
@@ -1009,7 +1063,8 @@ export default function App() {
         )}
       </div>
       <div
-        className="attempts"
+        className={`attempts${experimental ? " names-only" : ""}`}
+        ref={historyPanel}
         aria-label="Tentativi precedenti"
         data-testid="attempts"
         style={
@@ -1022,19 +1077,27 @@ export default function App() {
             key={`${snap.round}-${h.country}`}
             data-testid="attempt"
           >
-            <span className="attempt-number">{i + 1}</span>
-            <FlagImage country={countries.find((c) => c.code === h.country)} />
-            <Reveal
-              regions={h.reveal}
-              label={`Zone trovate con ${countryName(countries, h.country)}`}
-            />
+            {!experimental && (
+              <>
+                <span className="attempt-number">{i + 1}</span>
+                <FlagImage
+                  country={countries.find((c) => c.code === h.country)}
+                />
+                <Reveal
+                  regions={h.reveal}
+                  label={`Zone trovate con ${countryName(countries, h.country)}`}
+                />
+              </>
+            )}
             <span className="attempt-name">
               {countryName(countries, h.country)}
             </span>
-            <span
-              className={`attempt-owner ${h.playerId === me?.id ? "is-mine" : ""}`}
-              title={snap.players.find((p) => p.id === h.playerId)?.nickname}
-            />
+            {!experimental && (
+              <span
+                className={`attempt-owner ${h.playerId === me?.id ? "is-mine" : ""}`}
+                title={snap.players.find((p) => p.id === h.playerId)?.nickname}
+              />
+            )}
           </div>
         ))}
       </div>
