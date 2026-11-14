@@ -268,6 +268,17 @@ it("esperimenti via Socket.IO: toggle sincronizzati, permessi e colori conservat
     expect(resumed.state!.history).toEqual(probe.state!.history);
     expect(resumed.state!.reveal).toEqual(probe.state!.reveal);
     expect(g.roundColorShift).toEqual(shift);
+    const proposed = await send(restored, { type: "draw", version: g.version });
+    expect(proposed.state!.phase).toBe("playing");
+    expect(proposed.state!.drawOffer).toBe(created.playerId);
+    await expect.poll(() => guestState?.drawOffer).toBe(created.playerId);
+    const accepted = await send(b, { type: "draw", version: g.version });
+    expect(accepted.state!.phase).toBe("between_rounds");
+    expect(accepted.state!.drawOffer).toBeNull();
+    expect(accepted.state!.results.at(-1)?.reason).toBe("Patta");
+    expect(accepted.state!.players.map((p) => p.score)).toEqual([0, 0]);
+    await expect.poll(() => guestState?.phase).toBe("between_rounds");
+
     expect(
       (
         await send(restored, {

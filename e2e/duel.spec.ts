@@ -143,7 +143,7 @@ test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, se
         .locator(".entry-screen")
         .evaluate((el) => el.getBoundingClientRect().height),
     )
-    .toBeGreaterThanOrEqual(667);
+    .toBeLessThan(480);
   await expect
     .poll(() =>
       pageB.evaluate(() =>
@@ -169,7 +169,7 @@ test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, se
   ).toBeDisabled();
   await expect(
     pageB.getByRole("radio", { name: "PvP", exact: true }),
-  ).toBeDisabled();
+  ).toHaveCount(0);
   const guestSettings = pageB.getByTestId("lobby-settings-summary");
   await expect(guestSettings).toHaveText("PvP · Tolleranza Standard");
   await expect(pageA.getByTestId("lobby-settings-summary")).toHaveCount(0);
@@ -177,17 +177,12 @@ test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, se
   await pageA.getByRole("radio", { name: /Precisa/ }).click();
   await expect(guestSettings).toHaveText("PvP · Tolleranza Precisa");
   await expect(guestSettings).toBeVisible();
-  await expect(pageB.locator(".advanced-settings")).not.toHaveAttribute(
-    "open",
-    "",
-  );
+  await expect(pageB.locator(".advanced-settings")).toHaveCount(0);
   await pageA.getByRole("radio", { name: /Ampia/ }).click();
   await expect(guestSettings).toHaveText("PvP · Tolleranza Ampia");
   await pageA.getByRole("radio", { name: /Precisa/ }).click();
-  await pageB.getByText("Impostazioni avanzate", { exact: true }).click();
-
-  await expect(pageB.getByRole("radio", { name: /Precisa/ })).toBeChecked();
-  await expect(pageB.getByRole("radio", { name: /Ampia/ })).toBeDisabled();
+  await expect(guestSettings).toHaveText("PvP · Tolleranza Precisa");
+  await expect(pageB.getByRole("radio")).toHaveCount(0);
   await pageA.getByRole("radio", { name: /Standard/ }).click();
   await expect(guestSettings).toHaveText("PvP · Tolleranza Standard");
   await pageA.getByRole("button", { name: "Inizia la partita" }).click();

@@ -802,44 +802,52 @@ export default function App() {
     );
   if (snap.phase === "waiting")
     return (
-      <main className="entry-screen">
-        <section className="lobby">
-          <div
-            className="mode-selector"
-            role="radiogroup"
-            aria-label="Modalità di gioco"
-          >
-            {(
-              [
-                ["pvp", "PvP"],
-                ["solo", "Giocatore singolo"],
-              ] as const
-            ).map(([mode, label]) => (
-              <button
-                key={mode}
-                role="radio"
-                aria-checked={snap.mode === mode}
-                className="secondary mode-choice"
-                disabled={
-                  snap.hostId !== me?.id ||
-                  game.busy ||
-                  !game.connected ||
-                  (mode === "solo" && snap.players.length > 1)
-                }
-                title={
-                  mode === "solo" && snap.players.length > 1
-                    ? "La modalità singolo richiede una stanza senza ospiti"
-                    : undefined
-                }
-                onClick={() => {
-                  if (snap.mode !== mode)
-                    void game.command("set_mode", { mode });
-                }}
+      <main
+        className={`entry-screen${snap.hostId !== me?.id ? " guest-screen" : ""}`}
+      >
+        <section
+          className={`lobby${snap.hostId !== me?.id ? " guest-lobby" : ""}`}
+        >
+          {snap.hostId === me?.id && (
+            <>
+              <div
+                className="mode-selector"
+                role="radiogroup"
+                aria-label="Modalità di gioco"
               >
-                {label}
-              </button>
-            ))}
-          </div>
+                {(
+                  [
+                    ["pvp", "PvP"],
+                    ["solo", "Giocatore singolo"],
+                  ] as const
+                ).map(([mode, label]) => (
+                  <button
+                    key={mode}
+                    role="radio"
+                    aria-checked={snap.mode === mode}
+                    className="secondary mode-choice"
+                    disabled={
+                      snap.hostId !== me?.id ||
+                      game.busy ||
+                      !game.connected ||
+                      (mode === "solo" && snap.players.length > 1)
+                    }
+                    title={
+                      mode === "solo" && snap.players.length > 1
+                        ? "La modalità singolo richiede una stanza senza ospiti"
+                        : undefined
+                    }
+                    onClick={() => {
+                      if (snap.mode !== mode)
+                        void game.command("set_mode", { mode });
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
           {solo ? (
             <>
               <h1 className="solo-title">Gioca da solo</h1>
@@ -855,25 +863,32 @@ export default function App() {
               <h1 className="room-code" data-testid="room-code">
                 {snap.code}
               </h1>
-              <div className="copy-row">
-                <button
-                  className="secondary"
-                  onClick={() => void copy(snap.code)}
-                >
-                  <Copy size={14} /> Codice
-                </button>
-                <button className="secondary" onClick={() => void copy(invite)}>
-                  Copia link
-                </button>
-              </div>
-              <input
-                className="invite"
-                aria-label="Link d'invito selezionabile"
-                value={invite}
-                readOnly
-                onFocus={(e) => e.currentTarget.select()}
-              />
-              {copied && <small role="status">{copied}</small>}
+              {snap.hostId === me?.id && (
+                <>
+                  <div className="copy-row">
+                    <button
+                      className="secondary"
+                      onClick={() => void copy(snap.code)}
+                    >
+                      <Copy size={14} /> Codice
+                    </button>
+                    <button
+                      className="secondary"
+                      onClick={() => void copy(invite)}
+                    >
+                      Copia link
+                    </button>
+                  </div>
+                  <input
+                    className="invite"
+                    aria-label="Link d'invito selezionabile"
+                    value={invite}
+                    readOnly
+                    onFocus={(e) => e.currentTarget.select()}
+                  />
+                  {copied && <small role="status">{copied}</small>}
+                </>
+              )}
             </>
           )}
           {snap.hostId !== me?.id && (
@@ -894,82 +909,86 @@ export default function App() {
               {snap.experiments.noMemory && " · No Memory"}
             </p>
           )}
-          <details className="advanced-settings">
-            <summary>Impostazioni avanzate</summary>
-            <p>Tolleranza dei colori</p>
-            <div
-              className="tolerance-selector"
-              role="radiogroup"
-              aria-label="Tolleranza dei colori"
-            >
-              {(
-                [
-                  ["precise", "Precisa"],
-                  ["standard", "Standard"],
-                  ["broad", "Ampia"],
-                ] as const
-              ).map(([preset, label]) => (
-                <button
-                  key={preset}
-                  role="radio"
-                  aria-checked={snap.tolerance === preset}
-                  className="secondary mode-choice tolerance-choice"
-                  disabled={
-                    snap.hostId !== me?.id || game.busy || !game.connected
-                  }
-                  onClick={() => {
-                    if (snap.tolerance !== preset)
-                      void game.command("set_tolerance", { tolerance: preset });
-                  }}
-                >
-                  {label}
-                  <small>
-                    ΔE {colorTolerances[preset].toFixed(2).replace(".", ",")}
-                  </small>
-                </button>
-              ))}
-            </div>
-            <p>Sperimentali</p>
-            <div
-              className="experimental-options"
-              role="group"
-              aria-label="Modalità sperimentali"
-            >
-              {(
-                [
-                  ["colorShift", "Color Shift"],
-                  ["noMemory", "No Memory"],
-                ] as const
-              ).map(([key, label]) => (
-                <button
-                  key={key}
-                  type="button"
-                  role="switch"
-                  aria-checked={snap.experiments[key]}
-                  className="secondary experimental-switch"
-                  disabled={
-                    snap.hostId !== me?.id || game.busy || !game.connected
-                  }
-                  onClick={() =>
-                    void game.command("set_experiments", {
-                      experiments: {
-                        ...snap.experiments,
-                        [key]: !snap.experiments[key],
-                      },
-                    })
-                  }
-                >
-                  {label}
-                  <span className="switch-track" aria-hidden="true" />
-                </button>
-              ))}
-            </div>
-            {experimental && (
-              <p className="experimental-note">
-                Tentativi senza limite · cronologia con soli nomi.
-              </p>
-            )}
-          </details>
+          {snap.hostId === me?.id && (
+            <details className="advanced-settings">
+              <summary>Impostazioni avanzate</summary>
+              <p>Tolleranza dei colori</p>
+              <div
+                className="tolerance-selector"
+                role="radiogroup"
+                aria-label="Tolleranza dei colori"
+              >
+                {(
+                  [
+                    ["precise", "Precisa"],
+                    ["standard", "Standard"],
+                    ["broad", "Ampia"],
+                  ] as const
+                ).map(([preset, label]) => (
+                  <button
+                    key={preset}
+                    role="radio"
+                    aria-checked={snap.tolerance === preset}
+                    className="secondary mode-choice tolerance-choice"
+                    disabled={
+                      snap.hostId !== me?.id || game.busy || !game.connected
+                    }
+                    onClick={() => {
+                      if (snap.tolerance !== preset)
+                        void game.command("set_tolerance", {
+                          tolerance: preset,
+                        });
+                    }}
+                  >
+                    {label}
+                    <small>
+                      ΔE {colorTolerances[preset].toFixed(2).replace(".", ",")}
+                    </small>
+                  </button>
+                ))}
+              </div>
+              <p>Sperimentali</p>
+              <div
+                className="experimental-options"
+                role="group"
+                aria-label="Modalità sperimentali"
+              >
+                {(
+                  [
+                    ["colorShift", "Color Shift"],
+                    ["noMemory", "No Memory"],
+                  ] as const
+                ).map(([key, label]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    role="switch"
+                    aria-checked={snap.experiments[key]}
+                    className="secondary experimental-switch"
+                    disabled={
+                      snap.hostId !== me?.id || game.busy || !game.connected
+                    }
+                    onClick={() =>
+                      void game.command("set_experiments", {
+                        experiments: {
+                          ...snap.experiments,
+                          [key]: !snap.experiments[key],
+                        },
+                      })
+                    }
+                  >
+                    {label}
+                    <span className="switch-track" aria-hidden="true" />
+                  </button>
+                ))}
+              </div>
+              {experimental && (
+                <p className="experimental-note">
+                  Tentativi senza limite · cronologia con soli nomi.
+                </p>
+              )}
+            </details>
+          )}
           <div className={`lobby-players ${solo ? "solo-player" : ""}`}>
             <span>
               {me?.nickname}
@@ -1008,7 +1027,7 @@ export default function App() {
           <button className="text-button" onClick={leave}>
             Esci
           </button>
-          {import.meta.env.DEV && (
+          {snap.hostId === me?.id && import.meta.env.DEV && (
             <button className="text-button" onClick={() => setLab(true)}>
               Laboratorio SVG
             </button>
@@ -1033,6 +1052,9 @@ export default function App() {
           onClick={() => setMenu(!menu)}
         >
           <MoreHorizontal size={20} />
+          {snap.drawOffer && snap.drawOffer !== me?.id && (
+            <span className="menu-notice" aria-hidden="true" />
+          )}
         </button>
         <div
           className={`player opponent ${!mine && playing ? "active" : ""}`}
@@ -1111,16 +1133,20 @@ export default function App() {
             : opponent?.connected === false
               ? "Avversario disconnesso"
               : snap.phase === "between_rounds"
-                ? `${solution?.name ?? ""} · ${solo ? (latest?.winner ? "Indovinata" : "Tentativi esauriti") : latest?.winner ? `${snap.players.find((p) => p.id === latest.winner)?.nickname} vince` : "Pareggio"}`
-                : mine
-                  ? solving
-                    ? "Risposta finale"
-                    : snap.subphase === "choose_probe"
-                      ? solo
-                        ? "Indovina la bandiera"
-                        : "Il tuo turno"
-                      : "Risolvi o passa"
-                  : `Turno di ${opponent?.nickname}`}
+                ? `${solution?.name ?? ""} · ${solo ? (latest?.reason === "Patta" ? "Patta" : latest?.winner ? "Indovinata" : "Tentativi esauriti") : latest?.reason === "Patta" ? "Patta" : latest?.winner ? `${snap.players.find((p) => p.id === latest.winner)?.nickname} vince` : "Pareggio"}`
+                : snap.drawOffer
+                  ? snap.drawOffer === me?.id
+                    ? "Patta proposta · in attesa"
+                    : "Proposta di patta · apri il menu"
+                  : mine
+                    ? solving
+                      ? "Risposta finale"
+                      : snap.subphase === "choose_probe"
+                        ? solo
+                          ? "Indovina la bandiera"
+                          : "Il tuo turno"
+                        : "Risolvi o passa"
+                    : `Turno di ${opponent?.nickname}`}
         </p>
         {snap.phase === "between_rounds" ? (
           <button
@@ -1245,6 +1271,43 @@ export default function App() {
               <>
                 <span className="eyebrow">STANZA {snap.code}</span>
                 <p>Mano {snap.round}</p>
+              </>
+            )}
+            {experimental && playing && (
+              <>
+                {snap.drawOffer && (
+                  <p className="draw-offer" role="status">
+                    {snap.drawOffer === me?.id
+                      ? "Hai proposto patta."
+                      : `${opponent?.nickname ?? "L’avversario"} propone patta.`}
+                  </p>
+                )}
+                {snap.drawOffer !== me?.id && (
+                  <button
+                    className="secondary"
+                    disabled={game.busy || !game.connected}
+                    onClick={async () => {
+                      const ack = await game.command("draw");
+                      if (ack.ok) setMenu(false);
+                    }}
+                  >
+                    {snap.drawOffer ? "Accetta patta" : "Patta"}
+                  </button>
+                )}
+                {snap.drawOffer && (
+                  <button
+                    className="text-button"
+                    disabled={game.busy || !game.connected}
+                    onClick={async () => {
+                      const ack = await game.command("decline_draw");
+                      if (ack.ok) setMenu(false);
+                    }}
+                  >
+                    {snap.drawOffer === me?.id
+                      ? "Annulla proposta"
+                      : "Rifiuta patta"}
+                  </button>
+                )}
               </>
             )}
             <button className="secondary" onClick={leave}>

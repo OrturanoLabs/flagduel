@@ -64,18 +64,9 @@ for (const solo of [false, true])
             const summary = b.getByTestId("lobby-settings-summary");
             if (colorShift) await expect(summary).toContainText("Color Shift");
             if (noMemory) await expect(summary).toContainText("No Memory");
-            await b.getByText("Impostazioni avanzate", { exact: true }).click();
-            for (const [name, enabled] of [
-              ["Color Shift", colorShift],
-              ["No Memory", noMemory],
-            ] as const) {
-              await expect(
-                b.getByRole("switch", { name, exact: true }),
-              ).toBeDisabled();
-              await expect(
-                b.getByRole("switch", { name, exact: true }),
-              ).toBeChecked({ checked: enabled });
-            }
+
+            await expect(b.getByRole("switch")).toHaveCount(0);
+            await expect(b.locator(".advanced-settings")).toHaveCount(0);
           }
           await a.getByRole("button", { name: "Inizia la partita" }).click();
           await expect(a.getByTestId("game")).toBeVisible();
@@ -179,6 +170,50 @@ for (const solo of [false, true])
             await b.getByRole("button", { name: "Prossima mano" }).click();
           await expect(a.getByTestId("attempt")).toHaveCount(0);
           await expect(a.locator(".target path")).toHaveCount(0);
+          const scoresBefore = await a
+            .locator(".player strong")
+            .allTextContents();
+          await a.getByRole("button", { name: "Menu stanza" }).click();
+          if (experimental) {
+            await a.getByRole("button", { name: "Patta", exact: true }).click();
+            if (!solo) {
+              await expect(b.getByRole("status")).toContainText(
+                "Proposta di patta",
+              );
+              await expect(a.locator(".target img")).toHaveCount(0);
+              await a.getByRole("button", { name: "Menu stanza" }).click();
+              await a.getByRole("button", { name: "Annulla proposta" }).click();
+              await a.getByRole("button", { name: "Menu stanza" }).click();
+              await a
+                .getByRole("button", { name: "Patta", exact: true })
+                .click();
+              await b.getByRole("button", { name: "Menu stanza" }).click();
+              await b.getByRole("button", { name: "Rifiuta patta" }).click();
+              await expect(a.locator(".target img")).toHaveCount(0);
+              await a.getByRole("button", { name: "Menu stanza" }).click();
+              await a
+                .getByRole("button", { name: "Patta", exact: true })
+                .click();
+              await b.getByRole("button", { name: "Menu stanza" }).click();
+              await b.getByRole("button", { name: "Accetta patta" }).click();
+            }
+            await expect(a.locator(".target > img")).toHaveAttribute(
+              "src",
+              "/api/flags/bd.svg",
+            );
+            await expect(
+              a.getByRole("button", { name: "Prossima mano" }),
+            ).toBeVisible();
+            await expect(a.getByRole("status")).toContainText("Patta");
+            expect(await a.locator(".player strong").allTextContents()).toEqual(
+              scoresBefore,
+            );
+          } else {
+            await expect(
+              a.getByRole("button", { name: "Patta", exact: true }),
+            ).toHaveCount(0);
+            await a.getByRole("button", { name: "Chiudi menu" }).click();
+          }
           expect(errors).toEqual([]);
         } finally {
           await host.close();

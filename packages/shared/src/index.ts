@@ -26,6 +26,8 @@ export const commandSchema = z
       "solve",
       "pass",
       "ready",
+      "draw",
+      "decline_draw",
     ]),
     experiments: experimentsSchema.optional(),
     tolerance: z.enum(["precise", "standard", "broad"]).optional(),
@@ -76,6 +78,7 @@ export interface Snapshot {
   players: Player[];
   round: number;
   active: string;
+  drawOffer: string | null;
   subphase: "choose_probe" | "choose_action";
   reveal: Region[];
   history: { country: string; playerId: string; reveal: Region[] }[];

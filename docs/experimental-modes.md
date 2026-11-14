@@ -23,14 +23,21 @@ Con almeno un esperimento attivo lo snapshot mantiene `country` e `playerId` di 
 
 `Snapshot.maxProbes` è `null` per indicare l'assenza di limite; altrimenti mantiene il numero configurato. Il server ignora il tetto in tutti e tre i punti: invio della sonda, Passa in PvP e conclusione automatica in singolo. Non cambia le altre regole: un Paese non può essere ripetuto nel round, la sonda esatta vince, Risolvi sbagliato assegna il punto all'avversario e il primo giocatore si alterna. Il numero di Paesi distinti resta finito (195); non vengono introdotti tentativi ripetuti o Paesi esterni al catalogo.
 
+## Patta
+
+Nelle mani sperimentali `draw` è disponibile anche al giocatore che non è di turno. In PvP il primo comando salva l'identità del proponente in `Snapshot.drawOffer`. Un comando `draw` dell'altro giocatore conclude la mano con vincitore nullo e motivo `Patta`; ripetere la proposta dal medesimo giocatore non la accetta. `decline_draw` rifiuta la proposta oppure la ritira se chiamato dal proponente. In singolo `draw` conclude immediatamente la mano.
+
+La proposta sopravvive alla riconnessione e rimane pendente finché viene accettata, rifiutata, ritirata o termina la mano. Le mosse normali restano possibili. Il server valida versione, identità, fase ed esperimenti attivi; la deduplicazione evita che due invii identici equivalgano a un accordo. A conclusione o all'avvio del nuovo round la proposta è azzerata; il punteggio non cambia e la soluzione è resa disponibile con i colori originali. Il frontend mostra una notifica sul menu e sullo stato del turno e offre Accetta/Rifiuta/Annulla proposta nel menu.
+
 ## Verifiche
 
 - Test geometrici con SVG reali: strisce rosse/blu e sonde che rivelano metà sinistra, metà destra oppure nessuna area; tutte e quattro le combinazioni verificano accumulo, sostituzione e svuotamento, senza mutare il catalogo.
 - Matrice singolo/PvP: comportamento standard al sesto tentativo, nove tentativi distinti con ciascun esperimento e con entrambi, divieto di ripetizione e vittoria successiva.
+- Patta: accordo PvP, rifiuto/ritiro, proposta fuori turno, singolo immediato, punteggi conservati, rifiuto in modalità standard e fuori fase, idempotenza e versioni obsolete. Copertura anche tramite Socket.IO reale e browser.
 - Trasformazione: colori validi, bianco/nero, stabilità durante il round, nuova generazione al round successivo e ritorno agli originali alla conclusione.
 - Socket.IO reale: toggle indipendenti, host autorizzato, ospite respinto, rifiuto di payload malformati e modifiche dopo l'avvio; snapshot sincronizzati e rientro senza cambiare trasformazione o cronologia.
-- Playwright: quattro combinazioni in singolo e PvP, toggle dell'ospite in sola lettura, riepilogo aggiornato, indizi condivisi, refresh, nove tentativi, nessuna immagine nella cronologia sperimentale, scroll interno senza scroll della pagina, soluzione originale e round successivo.
+- Playwright: quattro combinazioni in singolo e PvP, riepilogo dell'ospite in sola lettura, riepilogo aggiornato, indizi condivisi, refresh, nove tentativi, nessuna immagine nella cronologia sperimentale, scroll interno senza scroll della pagina, soluzione originale e round successivo.
 
-Risultati: build e TypeScript riusciti; 47 test unitari/integrati passati; 12 scenari Playwright passati su Chromium e 12 su Firefox. Nessuna dipendenza aggiuntiva. I browser desktop con viewport da smartphone non sostituiscono il test della tastiera nativa su Android. La verifica Docker/Linux non è stata ripetuta per questa modifica.
+Risultati: build e TypeScript riusciti; 55 test unitari/integrati passati; 12 scenari Playwright passati su Chromium e 12 su Firefox. Nessuna dipendenza aggiuntiva. I browser desktop con viewport da smartphone non sostituiscono il test della tastiera nativa su Android. La verifica Docker/Linux non è stata ripetuta per questa modifica.
 
 Per provare il branch localmente, eseguire `npm run build` e riavviare `npm start`, quindi ricaricare entrambi i browser. Stato e sessioni restano in RAM come nel gioco precedente: il riavvio del server richiede nuove stanze.

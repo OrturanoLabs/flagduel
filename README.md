@@ -57,6 +57,8 @@ Nella lobby apri **Impostazioni avanzate → Sperimentali**. Il creatore può at
 - **No Memory**: la bandiera principale mostra soltanto le aree riconosciute dall'ultima sonda. Un tentativo senza corrispondenze la svuota completamente.
 - **Almeno un esperimento attivo**: nessun tetto di tentativi; la cronologia conserva solo i nomi, senza bandiere o anteprime degli indizi. La lista scorre al suo interno per mantenere i controlli nella schermata. In singolo il contatore mostra **∞**.
 
+Nel menu di partita è disponibile **Patta** quando almeno un esperimento è attivo. In PvP propone la patta: l'avversario riceve un avviso discreto e può accettare o rifiutare dal menu; chi propone può ritirarla. Solo l'accordo di entrambi conclude la mano. In singolo la conclusione è immediata. La soluzione viene mostrata nei colori originali e nessun punto viene assegnato. **Prossima mano** prosegue normalmente.
+
 Restano invariati turni, punteggi, Risolvi/Passa in PvP e divieto di ripetere un Paese già testato nello stesso round. «Senza limite» elimina quindi il tetto `MAX_PROBES`, mantenendo il catalogo dei 195 Paesi distinti. Con entrambi gli esperimenti disattivati tornano accumulo, anteprime e limite normale. Dettagli e verifiche in [docs/experimental-modes.md](docs/experimental-modes.md).
 
 ## Sviluppo

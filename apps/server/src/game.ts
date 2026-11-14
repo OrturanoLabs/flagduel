@@ -33,6 +33,7 @@ export class Game {
   mode: Snapshot["mode"] = "pvp";
   experiments: Snapshot["experiments"] = { colorShift: false, noMemory: false };
   roundColorShift: ColorShift | null = null;
+  drawOffer: string | null = null;
   get experimental() {
     return this.experiments.colorShift || this.experiments.noMemory;
   }
@@ -91,6 +92,7 @@ export class Game {
       round: this.round,
       hostId: this.hostId,
       active: this.active,
+      drawOffer: this.drawOffer,
       subphase: this.subphase,
       reveal: this.revealed.map(({ d, color }) => ({
         d,
@@ -110,6 +112,7 @@ export class Game {
     };
   }
   next() {
+    this.drawOffer = null;
     this.round++;
     this.roundColorShift = this.experiments.colorShift
       ? { ...this.makeColorShift() }
@@ -125,6 +128,7 @@ export class Game {
     this.players.forEach((p) => (p.ready = false));
   }
   end(winner: string | null, reason: string) {
+    this.drawOffer = null;
     if (winner) this.players.find((p) => p.id === winner)!.score++;
     this.results.push({ country: this.secret, winner, reason });
     this.phase = "between_rounds";
@@ -146,7 +150,22 @@ export class Game {
     this.seen.set(id, seen);
     if (seen.has(c.actionId)) return;
     if (c.version !== this.version) throw Error("Stato aggiornato: riprova");
-    if (c.type === "set_experiments") {
+    if (c.type === "draw" || c.type === "decline_draw") {
+      if (!this.experimental || this.phase !== "playing")
+        throw Error("Patta disponibile solo durante una mano sperimentale");
+      if (c.type === "decline_draw") {
+        if (!this.drawOffer) throw Error("Nessuna proposta di patta");
+        this.drawOffer = null;
+      } else if (
+        this.mode === "solo" ||
+        (this.drawOffer && this.drawOffer !== id)
+      ) {
+        this.end(null, "Patta");
+      } else {
+        if (this.drawOffer === id) throw Error("Hai già proposto patta");
+        this.drawOffer = id;
+      }
+    } else if (c.type === "set_experiments") {
       if (id !== this.hostId)
         throw Error("Solo il creatore può scegliere gli esperimenti");
       if (this.phase !== "waiting")

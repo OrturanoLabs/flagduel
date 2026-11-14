@@ -230,3 +230,90 @@ it("trasformazione cromatica deterministica, valida anche per bianco/nero e senz
     }
   }
 });
+
+for (const experiments of combinations.slice(1)) {
+  it(`patta PvP concordata, senza punti, con reset: ${JSON.stringify(experiments)}`, () => {
+    const g = game(experiments);
+    const [a, b] = g.players;
+    a.score = 2;
+    b.score = 3;
+    act(g, "draw", {}, b.id);
+    expect(g.snapshot().drawOffer).toBe(b.id);
+    expect(g.phase).toBe("playing");
+    expect(g.snapshot().solution).toBeUndefined();
+    expect(() => act(g, "draw", {}, b.id)).toThrow("Hai già proposto");
+    act(g, "draw", {}, a.id);
+    expect(g.phase).toBe("between_rounds");
+    expect(g.results.at(-1)).toEqual({
+      country: "aa",
+      winner: null,
+      reason: "Patta",
+    });
+    expect(g.snapshot().solution).toBe("aa");
+    expect(g.drawOffer).toBeNull();
+    expect(g.players.map((p) => p.score)).toEqual([2, 3]);
+    act(g, "ready", {}, a.id);
+    act(g, "ready", {}, b.id);
+    expect(g.round).toBe(2);
+    expect(g.phase).toBe("playing");
+    expect(g.drawOffer).toBeNull();
+    expect(g.players.map((p) => p.score)).toEqual([2, 3]);
+  });
+  it(`patta singolo immediata: ${JSON.stringify(experiments)}`, () => {
+    const g = game(experiments, "solo");
+    g.players[0].score = 2;
+    act(g, "draw");
+    expect(g.phase).toBe("between_rounds");
+    expect(g.results[0].reason).toBe("Patta");
+    expect(g.players[0].score).toBe(2);
+    expect(g.drawOffer).toBeNull();
+    act(g, "ready");
+    expect(g.round).toBe(2);
+  });
+}
+
+it("patta: rifiuto, ritiro, versioni obsolete e chiusura normale della mano", () => {
+  const g = game(combinations[3]);
+  const [a, b] = g.players;
+  expect(() => act(g, "decline_draw")).toThrow("Nessuna proposta");
+  const command: Command = {
+    type: "draw",
+    version: g.version,
+    actionId: "draw-idempotent",
+  };
+  g.command(a.id, command);
+  g.command(a.id, command);
+  expect(g.phase).toBe("playing");
+  expect(g.drawOffer).toBe(a.id);
+  const previous = g.version;
+  act(g, "decline_draw", {}, b.id);
+  expect(g.drawOffer).toBeNull();
+  expect(() =>
+    g.command(b.id, {
+      type: "draw",
+      version: previous,
+      actionId: "draw-stale-accept",
+    }),
+  ).toThrow("Stato aggiornato");
+  act(g, "draw", {}, a.id);
+  act(g, "decline_draw", {}, a.id);
+  expect(g.drawOffer).toBeNull();
+  act(g, "draw", {}, b.id);
+  act(g, "probe", { country: "aa" }, a.id);
+  expect(g.drawOffer).toBeNull();
+  expect(g.results[0].winner).toBe(a.id);
+  expect(() => act(g, "draw", {}, b.id)).toThrow("durante una mano");
+});
+
+it("nessuna patta standard o prima dell'avvio; estranei esclusi", () => {
+  for (const mode of ["solo", "pvp"] as const) {
+    const g = game(combinations[0], mode);
+    expect(() => act(g, "draw")).toThrow("sperimentale");
+    expect(() => act(g, "decline_draw")).toThrow("sperimentale");
+    expect(() => act(g, "draw", {}, "estraneo")).toThrow("non autorizzata");
+  }
+  const g = new Game("ABC", catalog);
+  const a = g.add("Ada");
+  act(g, "set_experiments", { experiments: combinations[3] }, a.id);
+  expect(() => act(g, "draw", {}, a.id)).toThrow("durante una mano");
+});

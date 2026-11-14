@@ -701,3 +701,34 @@ label {
   flex: 0 0 auto;
   min-height: 32px;
 }
+
+/* Lobby ospite: contenuto compatto nel flusso normale, indipendente dai viewport
+   della tastiera e delle barre dinamiche del browser. */
+.entry-screen.guest-screen {
+  display: block;
+  min-height: 0;
+  padding: 32px 24px;
+}
+.guest-lobby {
+  margin: 0 auto;
+  gap: 12px;
+}
+.guest-lobby .lobby-players {
+  margin: 8px 0;
+}
+.menu-toggle {
+  position: relative;
+}
+.menu-notice {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.draw-offer {
+  font-size: 13px;
+  color: var(--muted);
+}
