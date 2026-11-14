@@ -11,10 +11,11 @@
     "preprocess": "tsx scripts/preprocess.ts",
     "test": "vitest run tests",
     "typecheck": "tsc --noEmit",
-    "build": "npm run preprocess && npm run licenses && npm run typecheck && vite build --config apps/web/vite.config.ts && esbuild apps/server/src/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/server.js",
+    "build": "npm run preprocess && npm run licenses && npm run typecheck && vite build --config apps/web/vite.config.ts && esbuild apps/server/src/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/server.js && esbuild scripts/statistics-info.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/statistics-info.js",
     "start": "NODE_ENV=production node dist/server.js",
     "test:e2e": "playwright test",
-    "licenses": "tsx scripts/licenses.ts"
+    "licenses": "tsx scripts/licenses.ts",
+    "stats:url": "node dist/statistics-info.js"
   },
   "dependencies": {
     "canvaskit-wasm": "^0.42.0",

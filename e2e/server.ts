@@ -16,5 +16,10 @@ const { http } = createApp(
       () => catalog.findIndex((f) => f.code === "bd"),
       () => 0,
     ),
+  {
+    statsDbPath: ":memory:",
+    statsKey: "e2e-statistics-access",
+    maxCreatesPerMinute: 64,
+  },
 );
 http.listen(Number(process.env.FLAG_DUEL_TEST_PORT ?? 8080), "127.0.0.1");

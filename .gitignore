@@ -10,3 +10,11 @@ test-results/
 *.log
 *.tsbuildinfo
 CODEX_PROMPT_FLAG_DUEL.md
+
+# Dati locali delle statistiche e cache di lavoro
+data/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+.cache/

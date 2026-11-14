@@ -1,4 +1,6 @@
 import express from "express";
+import { Statistics } from "./statistics";
+import { installStatistics } from "./statistics-http";
 import { createServer } from "node:http";
 import { randomBytes, randomInt } from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -36,10 +38,41 @@ export function createApp(
     readFileSync("assets/generated/catalog.json", "utf8"),
   ),
   makeGame: (code: string) => Game = (code) => new Game(code, catalog, config),
+  options: {
+    statistics?: Statistics;
+    statsDbPath?: string;
+    statsKey?: string;
+    maxCreatesPerMinute?: number;
+  } = {},
 ) {
   const app = express(),
     http = createServer(app),
     io = new Server(http, { maxHttpBufferSize: 8192 });
+  const statistics =
+    options.statistics ??
+    new Statistics(
+      options.statsDbPath ??
+        (process.env.NODE_ENV === "test"
+          ? ":memory:"
+          : (process.env.STATS_DB_PATH ?? "data/flagduel.sqlite")),
+      catalog,
+      options.statsKey ?? process.env.STATS_KEY,
+    );
+  statistics.recoverInterrupted();
+  installStatistics(app, statistics);
+  const record = (
+    game: Game,
+    id: string,
+    c: import("../../../packages/shared/src/index").Command,
+    before: { version: number; round: number; phase: Game["phase"] },
+  ) => {
+    try {
+      statistics.observe(game, id, c, before);
+    } catch (error) {
+      statistics.writeErrors++;
+      console.error("Statistiche: scrittura fallita", error);
+    }
+  };
   const rooms = new Map<string, Game>();
   const sessions = new Map<
     string,
@@ -155,7 +188,10 @@ export function createApp(
             if (!c.nickname) throw Error("Nickname obbligatorio");
             if (c.type === "create") {
               if (
-                !allowed("create:" + socket.handshake.address, 12) ||
+                !allowed(
+                  "create:" + socket.handshake.address,
+                  options.maxCreatesPerMinute ?? 12,
+                ) ||
                 rooms.size >= 500
               )
                 throw Error("Limite creazione stanze");
@@ -189,7 +225,13 @@ export function createApp(
         } else {
           if (!session) throw Error("Sessione non autorizzata");
           game = rooms.get(session.code)!;
+          const before = {
+            version: game.version,
+            round: game.round,
+            phase: game.phase,
+          };
           game.command(session.id, c);
+          record(game, session.id, c, before);
           ack({ ok: true, state: game.snapshot() });
           broadcast(game);
         }
@@ -225,30 +267,47 @@ export function createApp(
       }
     });
   });
-  const cleanup = setInterval(() => {
+  const cleanupRooms = () => {
     for (const [code, g] of rooms) {
       if (
         g.players.every((p) => !p.connected) &&
         Date.now() - g.touched > 3600000
       ) {
+        try {
+          statistics.abandon(g);
+        } catch (error) {
+          statistics.writeErrors++;
+          console.error("Statistiche: abbandono non salvato", error);
+        }
         rooms.delete(code);
         for (const [t, s] of sessions) if (s.code === code) sessions.delete(t);
       }
     }
     for (const [key, r] of rates) if (Date.now() > r.until) rates.delete(key);
-  }, 30000);
+  };
+  const cleanup = setInterval(cleanupRooms, 30000);
   cleanup.unref();
-  http.on("close", () => clearInterval(cleanup));
-  return { app, http, io, rooms };
+  http.on("close", () => {
+    clearInterval(cleanup);
+    if (!options.statistics) statistics.close();
+  });
+  return { app, http, io, rooms, statistics, cleanupRooms };
 }
 if (process.env.NODE_ENV !== "test") {
-  const { http } = createApp();
+  const { http, statistics } = createApp();
   http.listen(
     Number(process.env.PORT ?? 8080),
     process.env.HOST ?? "0.0.0.0",
-    () =>
+    () => {
       console.log(
         "Flag Duel HTTP pronto sulla porta " + (process.env.PORT ?? 8080),
-      ),
+      );
+      console.log(
+        "Statistiche: http://localhost:" +
+          (process.env.PORT ?? 8080) +
+          statistics.accessPath,
+      );
+      console.log("Database statistiche: " + statistics.filename);
+    },
   );
 }

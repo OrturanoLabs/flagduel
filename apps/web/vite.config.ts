@@ -8,7 +8,16 @@ const webDir = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   root: webDir,
   plugins: [react(), tailwindcss()],
-  build: { outDir: resolve(webDir, "dist"), emptyOutDir: true },
+  build: {
+    outDir: resolve(webDir, "dist"),
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        game: resolve(webDir, "index.html"),
+        stats: resolve(webDir, "stats.html"),
+      },
+    },
+  },
   server: {
     proxy: {
       "/api": { target: "http://localhost:8080", changeOrigin: true },

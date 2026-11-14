@@ -8,8 +8,15 @@ services:
     environment:
       TOLERANCE: ${TOLERANCE:-0.04}
       MAX_PROBES: ${MAX_PROBES:-6}
+      STATS_DB_PATH: /app/data/flagduel.sqlite
+      STATS_KEY: ${STATS_KEY:-}
+    volumes:
+      - statistics-data:/app/data
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "3"
+
+volumes:
+  statistics-data:

@@ -61,6 +61,14 @@ Nel menu di partita è disponibile **Patta** quando almeno un esperimento è att
 
 Restano invariati turni, punteggi, Risolvi/Passa in PvP e divieto di ripetere un Paese già testato nello stesso round. «Senza limite» elimina quindi il tetto `MAX_PROBES`, mantenendo il catalogo dei 195 Paesi distinti. Con entrambi gli esperimenti disattivati tornano accumulo, anteprime e limite normale. Dettagli e verifiche in [docs/experimental-modes.md](docs/experimental-modes.md).
 
+## Statistiche persistenti
+
+Questo branch conserva mani e scelte in **SQLite** (`data/flagduel.sqlite`) e aggiunge una pagina dedicata non collegata al gioco. Dopo la build, `npm run stats:url` ne stampa l'indirizzo; lo stesso URL compare all'avvio del server. La chiave viene salvata nel DB e resta stabile ai riavvii. Chi conosce l'indirizzo può consultare i dati, senza login.
+
+La pagina include frequenze di estrazione, tentativi medi e mediani, insuccessi, vantaggio di G1/G2 della mano, metodi di vittoria e probabilità condizionate, **classifica esplicita delle bandiere più scelte** (sonde, definitive e totale), prime sonde, cronologia e CSV. I filtri separano gioco, esperimenti, tolleranza, limite e versione delle bandiere. Le mani non concluse sono indicate separatamente; la media delle risolte è esplicitamente condizionata al successo.
+
+Compose mantiene il DB nel volume `statistics-data`. Percorso e indirizzo sono configurabili con `STATS_DB_PATH` e `STATS_KEY`. Avvio, significato dei denominatori, backup e limiti in [docs/statistics.md](docs/statistics.md). Le partite precedenti a questa versione non sono ricostruite.
+
 ## Sviluppo
 
 ```sh

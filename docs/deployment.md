@@ -34,3 +34,10 @@ Se Socket.IO non si connette: aprire `/health` dal client, controllare IP VPN/BI
 Il rate limit è in memoria: 12 creazioni/minuto per indirizzo, 120 comandi/minuto per socket e sessione persistente, 600 per indirizzo, massimo 500 stanze. È una protezione moderata per il prototipo privato, non un servizio pubblico anti-abuso. Snapshot completi e operazioni geometriche sincrone sono adatti a un piccolo gruppo, senza garanzia di scalabilità. Non esistono persistenza, account, classifica, chat, spettatori, recupero di sessioni dopo cancellazione del localStorage o riavvio server. Il token locale è una credenziale guest: non condividerlo.
 
 Prossimi passi: verificare il deploy Linux/VPN reale e misurare il carico prima di aumentare il numero di stanze.
+
+
+## Dati statistici
+
+Il DB SQLite predefinito è `data/flagduel.sqlite` su Mac/Linux e `/app/data/flagduel.sqlite` nel container. Compose lo conserva nel volume nominato `statistics-data`, anche ricreando il container. Dopo la build usare `npm run stats:url`, oppure `docker compose exec app npm run stats:url`, per leggere l'indirizzo privato della pagina. Nessun link viene aggiunto al gioco; chi possiede l'URL può vedere i dati senza login.
+
+`STATS_DB_PATH` cambia il percorso locale; `STATS_KEY` sceglie la chiave dell'indirizzo. Lasciandola vuota il server genera e conserva una chiave nel DB. In Compose il percorso resta nel volume, mentre STATS_KEY può essere impostata in `.env`. Non usare `docker compose down -v` se si vogliono mantenere i dati. Per backup live usare SQLite `.backup`, non la copia isolata di un DB in WAL: [guida statistiche](statistics.md).
