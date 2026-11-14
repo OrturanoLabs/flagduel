@@ -43,6 +43,7 @@ for (const solo of [false, true])
             await b.goto(invite);
             await b.getByLabel("Nickname").fill("Bruno");
             await b.getByLabel("Nickname").press("Enter");
+            await expect(a.locator(".lobby-players")).toContainText("Bruno");
           }
           await a.getByText("Impostazioni avanzate", { exact: true }).click();
           await expect(
@@ -59,6 +60,12 @@ for (const solo of [false, true])
             await a
               .getByRole("switch", { name: "No Memory", exact: true })
               .click();
+          await expect(
+            a.getByRole("switch", { name: "Color Shift", exact: true }),
+          ).toBeChecked({ checked: colorShift });
+          await expect(
+            a.getByRole("switch", { name: "No Memory", exact: true }),
+          ).toBeChecked({ checked: noMemory });
           await a.getByRole("radio", { name: /Ampia/ }).click();
           if (!solo) {
             const summary = b.getByTestId("lobby-settings-summary");

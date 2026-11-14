@@ -6,6 +6,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import path from "node:path";
+import { JSDOM } from "jsdom";
 interface PackageInfo {
   name: string;
   version: string;
@@ -104,6 +105,50 @@ notices.set("feather@4.29.2", {
     "utf8",
   ).trim(),
 });
+const regionalAssets: {
+  code: string;
+  name: string;
+  file: string;
+  source: string;
+  timestamp: string;
+  metadata: Record<string, { value: string }>;
+}[] = JSON.parse(readFileSync("assets/regions/manifest.json", "utf8"));
+const textOnly = (html: string) =>
+  JSDOM.fragment(html).textContent?.replace(/\s+/g, " ").trim() ?? "";
+for (const asset of regionalAssets) {
+  const license = asset.metadata.LicenseShortName.value;
+  const version = license.includes("4.0")
+    ? "4.0"
+    : license.includes("3.0")
+      ? "3.0"
+      : null;
+  const attribution = [
+    `Opera: ${asset.file}`,
+    `Autore/i: ${textOnly(asset.metadata.Artist?.value ?? "Vedere pagina sorgente")}`,
+    `Fonte: ${asset.source}`,
+    `Versione Commons: ${asset.timestamp}`,
+    `Licenza: ${license}`,
+    asset.metadata.LicenseUrl?.value ??
+      "Dominio pubblico come indicato nella pagina sorgente Commons.",
+    "Adattamenti Flag Duel: stili espansi, metadati editor rimossi, geometria normalizzata a 300x200; eventuali sfumature/semitrasparenze appiattite, curve convertite in segmenti vettoriali e microtesti rimossi. Dettagli per bandiera in assets/generated/regions-report.json.",
+    "Originali e metadati completi conservati in assets/regions/. La licenza del singolo asset vale anche per la relativa versione normalizzata e le superfici SVG derivate; non viene sostituita dalla MIT del codice.",
+    ...(version
+      ? [
+          readFileSync(
+            `third_party/upstream/CC-BY-SA-${version}.txt`,
+            "utf8",
+          ).trim(),
+        ]
+      : []),
+  ].join("\n\n");
+  notices.set(`italian-region-${asset.code}`, {
+    name: `Bandiera ${asset.name}`,
+    version: asset.timestamp,
+    license,
+    source: asset.source,
+    text: attribution,
+  });
+}
 const sorted = [...notices.values()].sort((a, b) =>
   `${a.name}@${a.version}`.localeCompare(`${b.name}@${b.version}`),
 );

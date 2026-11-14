@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import type { Flag } from "../apps/server/src/game";
-test("confronto visivo di195SVG: sorgente browser e superfici vettoriali preprocessate", async ({
+test("confronto visivo: 195 Stati, 20 regioni e relativi adattamenti SVG", async ({
   page,
 }) => {
   test.setTimeout(120000);
@@ -18,13 +18,51 @@ test("confronto visivo di195SVG: sorgente browser e superfici vettoriali preproc
       "utf8",
     ),
     output: f.svg,
+    limit: 0.005,
+    metric: "fraction",
   }));
+  const regions: Flag[] = JSON.parse(
+    readFileSync("assets/generated/regions-catalog.json", "utf8"),
+  );
+  const regionalReport: {
+    code: string;
+    assetPath: string;
+    adaptations: string[];
+  }[] = JSON.parse(
+    readFileSync("assets/generated/regions-report.json", "utf8"),
+  );
+  for (const flag of regions) {
+    const result = regionalReport.find((r) => r.code === flag.code)!;
+    const normalized = readFileSync(result.assetPath, "utf8");
+    cases.push({
+      code: flag.code,
+      source: normalized,
+      output: flag.svg,
+      limit: 0.005,
+      metric: "fraction",
+    });
+    const colorAdapted = result.adaptations.some(
+      (n) => n.includes("Sfumature") || n.includes("Semitrasparenze"),
+    );
+    cases.push({
+      code: flag.code + "-source",
+      source: readFileSync(`assets/regions/source/${flag.code}.svg`, "utf8"),
+      output: normalized,
+      limit: colorAdapted ? 0.05 : 0.005,
+      metric: colorAdapted ? "imageFraction" : "fraction",
+    });
+  }
   await page.goto("/");
   const results = await page.evaluate(async (cases) => {
     const load = (source: string) =>
       new Promise<HTMLImageElement>((resolve, reject) => {
         const xml = new DOMParser().parseFromString(source, "image/svg+xml");
         const root = xml.documentElement;
+        if (!root.hasAttribute("viewBox"))
+          root.setAttribute(
+            "viewBox",
+            `0 0 ${parseFloat(root.getAttribute("width")!)} ${parseFloat(root.getAttribute("height")!)}`,
+          );
         root.setAttribute("width", "300");
         root.setAttribute("height", "200");
         root.setAttribute("preserveAspectRatio", "none");
@@ -71,6 +109,9 @@ test("confronto visivo di195SVG: sorgente browser e superfici vettoriali preproc
         checked,
         mismatched,
         fraction: mismatched / checked,
+        limit: f.limit,
+        metric: f.metric,
+        imageFraction: mismatched / 60000,
       });
     }
     return output;
@@ -80,5 +121,23 @@ test("confronto visivo di195SVG: sorgente browser e superfici vettoriali preproc
     "test-results/svg-visual-audit.json",
     JSON.stringify(results, null, 2),
   );
-  expect(results.filter((r) => r.fraction > 0.005)).toEqual([]);
+  const veneto = regions.find((f) => f.code === "it-34")!;
+  const previews = [
+    readFileSync("assets/regions/source/it-34.svg", "utf8"),
+    readFileSync("assets/regions/flat/it-34.svg", "utf8"),
+    veneto.svg,
+  ];
+  await page.setContent(
+    `<body style="margin:0;background:#222;color:#fff;font:14px sans-serif;display:flex;gap:12px;padding:12px">${previews.map((svg, i) => `<section style="width:300px"><p>${["Originale Commons", "Variante a colori piatti", "Geometria di gioco"][i]}</p><img style="width:300px;height:200px;object-fit:fill" src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}"></section>`).join("")}</body>`,
+  );
+  await page.screenshot({
+    path: "test-results/veneto-visual-comparison.png",
+    fullPage: true,
+  });
+  expect(
+    results.filter(
+      (r) =>
+        (r.metric === "imageFraction" ? r.imageFraction : r.fraction) > r.limit,
+    ),
+  ).toEqual([]);
 });

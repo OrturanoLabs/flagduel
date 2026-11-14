@@ -119,3 +119,10 @@ Nuovo riscontro: fascia nera anche a tastiera già chiusa su Firefox Android, ap
 Verifiche finali: build e TypeScript riusciti, 55 test unitari/integrati passati e 12 scenari Playwright passati sia su Chromium sia su Firefox. Test ingresso esteso a tastiera già chiusa, a 320×480, all'assenza di sovrapposizioni sul pulsante Esci e screenshot `test-results/guest-lobby-closed-keyboard.png` (output locale ignorato da Git). Nessuna fascia riprodotta nei browser desktop: per diagnosticare quella osservata su Firefox Android manca una cattura del dispositivo che includa anche le barre del browser. Non viene dichiarata una correzione nativa verificata.
 
 Durante l'indagine consultati i report Mozilla [2026752](https://bugzilla.mozilla.org/show_bug.cgi?id=2026752) (altezza dvh e toolbar espansa) e [1921339](https://bugzilla.mozilla.org/show_bug.cgi?id=1921339) (viewport alto e toolbar inferiore). Descrivono problemi della gestione del viewport su Android, ma non provano che il caso di Flag Duel abbia la stessa causa.
+
+
+## Extra Regioni italiane — 14 novembre 2026
+
+Nuovo branch pulito `feat/italian-regions` da `1c6940f` del branch sperimentale. Aggiunto catalogo opzionale di 20 regioni, toggle dell'host nella lobby e riepilogo live dell'ospite. Il catalogo è distinto dai 195 Stati e indipendente dagli esperimenti; disponibile in singolo/PvP, con ripristino e mani successive. Gli SVG originali, metadati, hash e licenze sono vendorizzati; derivati e adattamenti a colori piatti dichiarati nel report. Gli avvisi includono 154 componenti/asset.
+
+Verifiche effettive: 67 test passati, build e TypeScript riusciti, 14 scenari Chromium e 14 Firefox passati. Audit dei 215 SVG e dei 20 adattamenti regionali: geometria generata entro 0,5% dei pixel interni del riferimento; variazione originale/normalizzato del Veneto 4,86% dell'intero riquadro per l'appiattimento intenzionale dei colori. Campania 0%. Cinque sonde fra stemmi complessi misurate localmente in circa 363–654 ms. Dettagli in `docs/italian-regions.md`. Nessuna verifica fisica Android o esecuzione Docker/Linux aggiunta.

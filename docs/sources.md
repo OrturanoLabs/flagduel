@@ -9,6 +9,12 @@
 
 Gli asset sono presenti in `assets/flags/` e `assets/flags-flat/`; i colori della sorgente scelta sono conservati dal motore. Il [report](../assets/generated/report.json) indica per ogni Paese la sorgente effettiva e il motivo della variante. Il catalogo generato deriva da tali asset e ne conserva le condizioni di licenza, non viene attribuito interamente all’autore dell’app.
 
+## Regioni italiane
+
+Il catalogo opzionale comprende le 20 regioni nella [galleria Commons](https://commons.wikimedia.org/wiki/Flags_of_regions_of_Italy). Fonti, autori, licenze e hash di ciascun file sono conservati nel [manifest regionale](../assets/regions/manifest.json) e riassunti nel [README degli asset](../assets/regions/README.md). Alcuni SVG sono in pubblico dominio; altri sono CC BY-SA 3.0 o 4.0. Le versioni derivate conservano le rispettive licenze. Gli avvisi e i testi integrali sono inclusi anche nel frontend e nel container.
+
+Le sfumature e le semitrasparenze non sono supportate dal motore: gli adattamenti dichiarati per Campania e Veneto sono riportati nel [report regionale](../assets/generated/regions-report.json). Il codice non attribuisce all'autore di Flag Duel gli stemmi importati e non presenta le varianti normalizzate come nuove bandiere ufficiali.
+
 ## Catalogo Stati
 
 Il criterio operativo è l’appartenenza ai [193 Stati membri ONU](https://www.un.org/en/about-us/member-states), con i [due Stati osservatori](https://research.un.org/en/unmembers/observers), Santa Sede/Vaticano e Palestina. Il manifest locale è [un-states.json](../assets/metadata/un-states.json). I nomi per la ricerca sono prodotti da `Intl.DisplayNames`, con la denominazione italiana Palestina impostata esplicitamente.

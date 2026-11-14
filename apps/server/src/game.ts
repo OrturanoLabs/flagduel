@@ -1,6 +1,7 @@
 import {
   colorTolerances,
   type ColorTolerance,
+  type CatalogSet,
 } from "../../../packages/shared/src/index";
 import { randomColorShift, shiftColor, type ColorShift } from "./color-shift";
 import { randomInt, randomBytes } from "node:crypto";
@@ -28,6 +29,11 @@ export const defaults: Config = {
 };
 export class Game {
   tolerance: ColorTolerance;
+  catalogSet: CatalogSet = "world";
+  private readonly catalogs: Record<CatalogSet, Flag[]>;
+  get catalog() {
+    return this.catalogs[this.catalogSet];
+  }
   version = 0;
   phase: Snapshot["phase"] = "waiting";
   mode: Snapshot["mode"] = "pvp";
@@ -52,12 +58,18 @@ export class Game {
   touched = Date.now();
   constructor(
     public code: string,
-    public catalog: Flag[],
+    catalog: Flag[],
     public config: Config = defaults,
-    private choose: () => number = () => randomInt(catalog.length),
+    private choose: () => number = () => randomInt(this.catalog.length),
     private coin: () => number = () => randomInt(2),
     private makeColorShift: () => ColorShift = randomColorShift,
+    availableCatalogs: Partial<Record<CatalogSet, Flag[]>> = {},
   ) {
+    this.catalogs = {
+      world: catalog,
+      italian_regions: [],
+      ...availableCatalogs,
+    };
     const preset = (Object.keys(colorTolerances) as ColorTolerance[]).find(
       (key) => colorTolerances[key] === config.tolerance,
     );
@@ -84,6 +96,7 @@ export class Game {
     return {
       code: this.code,
       mode: this.mode,
+      catalogSet: this.catalogSet,
       experiments: { ...this.experiments },
       tolerance: this.tolerance,
       version: this.version,
@@ -150,7 +163,15 @@ export class Game {
     this.seen.set(id, seen);
     if (seen.has(c.actionId)) return;
     if (c.version !== this.version) throw Error("Stato aggiornato: riprova");
-    if (c.type === "draw" || c.type === "decline_draw") {
+    if (c.type === "set_catalog") {
+      if (id !== this.hostId)
+        throw Error("Solo il creatore può scegliere il catalogo");
+      if (this.phase !== "waiting")
+        throw Error("Il catalogo si sceglie nella lobby");
+      if (!c.catalogSet || !this.catalogs[c.catalogSet]?.length)
+        throw Error("Catalogo non disponibile");
+      this.catalogSet = c.catalogSet;
+    } else if (c.type === "draw" || c.type === "decline_draw") {
       if (!this.experimental || this.phase !== "playing")
         throw Error("Patta disponibile solo durante una mano sperimentale");
       if (c.type === "decline_draw") {
@@ -221,7 +242,7 @@ export class Game {
       const country = c.country;
       if (c.type === "probe" || c.type === "solve") {
         if (!this.catalog.some((f) => f.code === country))
-          throw Error("Paese non valido");
+          throw Error("Bandiera non valida");
       }
       if (c.type === "probe") {
         if (

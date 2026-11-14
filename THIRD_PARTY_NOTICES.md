@@ -22,6 +22,26 @@ Questo indice si rigenera con `npm run licenses` dopo `npm ci`; include le dipen
 | accepts | 1.3.8 | MIT | [Origine](https://github.com/jshttp/accepts) |
 | accepts | 2.0.0 | MIT | [Origine](https://github.com/jshttp/accepts) |
 | agent-base | 7.1.4 | MIT | [Origine](https://github.com/TooTallNate/proxy-agents) |
+| Bandiera Abruzzo | 2024-10-20T14:08:03Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Abruzzo.svg) |
+| Bandiera Basilicata | 2024-04-16T16:42:44Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Basilicata.svg) |
+| Bandiera Calabria | 2020-02-29T12:38:34Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Calabria.svg) |
+| Bandiera Campania | 2023-04-02T09:26:05Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Campania.svg) |
+| Bandiera Emilia-Romagna | 2024-02-11T21:34:10Z | CC BY-SA 4.0 | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Emilia-Romagna_(de_facto).svg) |
+| Bandiera Friuli-Venezia Giulia | 2021-04-05T04:28:25Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Friuli-Venezia_Giulia.svg) |
+| Bandiera Lazio | 2024-03-10T10:34:21Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Lazio.svg) |
+| Bandiera Liguria | 2023-10-07T11:22:42Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Liguria.svg) |
+| Bandiera Lombardia | 2024-06-09T01:48:44Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Lombardy.svg) |
+| Bandiera Marche | 2022-10-22T18:22:16Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Marche.svg) |
+| Bandiera Molise | 2020-02-28T16:22:25Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Molise.svg) |
+| Bandiera Piemonte | 2023-02-03T14:18:43Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Piedmont.svg) |
+| Bandiera Puglia | 2025-06-07T01:35:13Z | CC BY-SA 3.0 | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Apulia.svg) |
+| Bandiera Sardegna | 2022-06-02T20:29:38Z | CC BY-SA 3.0 | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Sardinia,_Italy.svg) |
+| Bandiera Sicilia | 2022-10-03T12:30:06Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Sicily.svg) |
+| Bandiera Toscana | 2023-01-29T17:59:13Z | CC BY-SA 3.0 | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Tuscany.svg) |
+| Bandiera Trentino-Alto Adige | 2018-04-25T12:58:45Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Trentino-South_Tyrol.svg) |
+| Bandiera Umbria | 2022-10-22T18:42:45Z | CC BY-SA 4.0 | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Umbria_(de_jure).svg) |
+| Bandiera Valle d'Aosta | 2021-02-18T02:05:20Z | Public domain | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Valle_d%27Aosta.svg) |
+| Bandiera Veneto | 2023-08-03T00:18:23Z | CC BY-SA 3.0 | [Origine](https://commons.wikimedia.org/wiki/File:Flag_of_Veneto.svg) |
 | body-parser | 2.4.0 | MIT | [Origine](https://github.com/expressjs/body-parser) |
 | bytes | 3.1.2 | MIT | [Origine](https://github.com/visionmedia/bytes.js) |
 | call-bind-apply-helpers | 1.0.2 | MIT | [Origine](https://github.com/ljharb/call-bind-apply-helpers) |

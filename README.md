@@ -2,7 +2,7 @@
 
 Indovina le bandiere in singolo o sfida un amico in PvP. Ogni tentativo rivela le zone geometriche con colori simili alla bandiera segreta.
 
-**Singolo e PvP · 195 Paesi · stanze private · nessun account · nessun timer · mani illimitate**
+**Singolo e PvP · 195 Paesi + 20 regioni italiane · stanze private · nessun account · nessun timer · mani illimitate**
 
 <img src="docs/screenshots/game.png" width="300" alt="Flag Duel su smartphone: punteggi, bandiera misteriosa, sei tentativi e azioni nella stessa schermata" />
 
@@ -49,6 +49,14 @@ Ci sono sei sonde distinte per mano; dopo la sesta si può ancora risolvere, men
 
 Durante il gioco la digitazione va nella barra Paese anche senza focus, quando il campo è abilitato. **Invio a campo vuoto non fa nulla; con testo da completare seleziona il risultato migliore; con un nome già selezionato lo invia.** I menu aperti, gli altri campi di testo e le scorciatoie del browser mantengono i propri comandi. Il selettore mostra solo i nomi; la cronologia mostra le sonde già giocate e le regioni trovate. L’interfaccia obsidian è pensata per smartphone, senza scroll della pagina di gioco.
 
+## Regioni italiane (extra)
+
+Nella lobby, **Impostazioni avanzate → Extra → Regioni italiane** attiva il catalogo delle **20 regioni italiane** al posto dei 195 Stati. Solo il creatore può cambiarlo prima dell'avvio; l'ospite vede la selezione aggiornata nel riepilogo. Il catalogo resta lo stesso dopo refresh e nelle mani successive.
+
+Funziona in singolo e PvP, anche con Color Shift e No Memory. Se gli esperimenti sono spenti restano sei tentativi, accumulo degli indizi e cronologia illustrata; i tentativi illimitati e la patta seguono le modalità sperimentali. I due cataloghi non si mescolano: nella ricerca compaiono soltanto le regioni quando l'extra è attivo.
+
+Gli SVG sono locali e funzionano offline. Campania e Veneto hanno adattamenti a colori piatti dichiarati; i microtesti del Veneto non supportati dal motore vengono rimossi. Province, comuni e province autonome come voci separate non sono inclusi. Fonti, licenze e limiti in [docs/italian-regions.md](docs/italian-regions.md).
+
 ## Modalità sperimentali
 
 Nella lobby apri **Impostazioni avanzate → Sperimentali**. Il creatore può attivare **Color Shift** e **No Memory** indipendentemente, anche insieme. L'ospite vede la selezione aggiornata nel riepilogo della lobby. Le opzioni sono disponibili sia in singolo sia in PvP e rimangono fisse durante la partita.
@@ -59,7 +67,7 @@ Nella lobby apri **Impostazioni avanzate → Sperimentali**. Il creatore può at
 
 Nel menu di partita è disponibile **Patta** quando almeno un esperimento è attivo. In PvP propone la patta: l'avversario riceve un avviso discreto e può accettare o rifiutare dal menu; chi propone può ritirarla. Solo l'accordo di entrambi conclude la mano. In singolo la conclusione è immediata. La soluzione viene mostrata nei colori originali e nessun punto viene assegnato. **Prossima mano** prosegue normalmente.
 
-Restano invariati turni, punteggi, Risolvi/Passa in PvP e divieto di ripetere un Paese già testato nello stesso round. «Senza limite» elimina quindi il tetto `MAX_PROBES`, mantenendo il catalogo dei 195 Paesi distinti. Con entrambi gli esperimenti disattivati tornano accumulo, anteprime e limite normale. Dettagli e verifiche in [docs/experimental-modes.md](docs/experimental-modes.md).
+Restano invariati turni, punteggi, Risolvi/Passa in PvP e divieto di ripetere un Paese già testato nello stesso round. «Senza limite» elimina quindi il tetto `MAX_PROBES`, mantenendo il catalogo selezionato di 195 Stati o 20 regioni distinte. Con entrambi gli esperimenti disattivati tornano accumulo, anteprime e limite normale. Dettagli e verifiche in [docs/experimental-modes.md](docs/experimental-modes.md).
 
 ## Sviluppo
 

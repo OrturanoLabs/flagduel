@@ -1,0 +1,327 @@
+[
+  {
+    "code": "it-65",
+    "included": true,
+    "digest": "2f110e1ec82b0a371d3b75f3fdbe436abf29e403318710418b5d028d36642bb8",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-65.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Abruzzo.svg",
+    "license": "Public domain",
+    "regions": 6,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-77",
+    "included": true,
+    "digest": "0362322ffd243e094dfeedf82fc753aeaebb5300f20adc846eda3f9a757c3f74",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-77.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Basilicata.svg",
+    "license": "Public domain",
+    "regions": 2,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-78",
+    "included": true,
+    "digest": "a03f49858f92fc087456745f8105e70e19784882d8a4631fd37890c97bdb65f1",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-78.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Calabria.svg",
+    "license": "Public domain",
+    "regions": 6,
+    "area": 59999,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-72",
+    "included": true,
+    "digest": "c1c5a41067a0aee3f7cd8454a7cb3a2c4e6db05ff225c6756cb89950c2cbdf3c",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-72.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Campania.svg",
+    "license": "Public domain",
+    "regions": 4,
+    "area": 60000,
+    "adaptations": [
+      "Sfumature sostituite con un colore piatto da uno stop centrale del gradiente.",
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-45",
+    "included": true,
+    "digest": "908f74eb1f1c77b390adeefdc026539906de3d74873f8475a2b9dc5c5076c8fd",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-45.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Emilia-Romagna_(de_facto).svg",
+    "license": "CC BY-SA 4.0",
+    "regions": 3,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-36",
+    "included": true,
+    "digest": "0b4a3cb5defa9b831fb704569c648c9f14228549f760db86be5ee806a7fb1dfb",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-36.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Friuli-Venezia_Giulia.svg",
+    "license": "Public domain",
+    "regions": 9,
+    "area": 59999,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-62",
+    "included": true,
+    "digest": "d5bb9a22e479328bfcc12ff5bbad79e5f8ce05dd3bea8ba1e59ea87e8efbfbf4",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-62.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Lazio.svg",
+    "license": "Public domain",
+    "regions": 13,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-42",
+    "included": true,
+    "digest": "da308ff71fd6c2bec70c64062573ac1f0e2c61e18dd59128a6bb37e47f8835ff",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-42.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Liguria.svg",
+    "license": "Public domain",
+    "regions": 6,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-25",
+    "included": true,
+    "digest": "01d88f268ed68c8c3f58b84a3a8b4e040266af2360ef2132d4e312ed4fdddd0d",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-25.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Lombardy.svg",
+    "license": "Public domain",
+    "regions": 2,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-57",
+    "included": true,
+    "digest": "5187dcd6b542854c216a4c52ba3c362372ba2c6e9b07cdb23800a26ef34b4228",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-57.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Marche.svg",
+    "license": "Public domain",
+    "regions": 3,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-67",
+    "included": true,
+    "digest": "cf150daeb090dfa8b5243a0ca1e9932bbb5a657ec3769523258843373956f0a5",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-67.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Molise.svg",
+    "license": "Public domain",
+    "regions": 5,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-21",
+    "included": true,
+    "digest": "7a6b89886935e62ac141ae6681abed03e57dfcffb7aae15e6926b2092284dd4c",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-21.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Piedmont.svg",
+    "license": "Public domain",
+    "regions": 3,
+    "area": 60000,
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ],
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente"
+  },
+  {
+    "code": "it-75",
+    "included": true,
+    "digest": "fc96cc373a077aaf89497a1eaebb85dde76f7e6ceffce181c9f61a68890cd924",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-75.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Apulia.svg",
+    "license": "CC BY-SA 3.0",
+    "regions": 10,
+    "area": 59998,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  },
+  {
+    "code": "it-88",
+    "included": true,
+    "digest": "9a3bbe58f87be8634f722872871c24b44231fb646dc59fa20117c30cbdd9f893",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-88.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Sardinia,_Italy.svg",
+    "license": "CC BY-SA 3.0",
+    "regions": 3,
+    "area": 59998,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  },
+  {
+    "code": "it-82",
+    "included": true,
+    "digest": "85fa651fe58b56c771734c069442783fe3f4f7e3fc06c2000f76b5e2c3ddd73b",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-82.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Sicily.svg",
+    "license": "Public domain",
+    "regions": 6,
+    "area": 59998,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  },
+  {
+    "code": "it-52",
+    "included": true,
+    "digest": "9b12ba4067efd138d57797b0a3ffa8d28271d4b72081244a7a15504ffa8040f3",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-52.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Tuscany.svg",
+    "license": "CC BY-SA 3.0",
+    "regions": 8,
+    "area": 59958,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  },
+  {
+    "code": "it-32",
+    "included": true,
+    "digest": "72f782dac1697e59489e4ec37c39ddf9f7b23b9b897be7f918ee4aedd513e89d",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-32.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Trentino-South_Tyrol.svg",
+    "license": "Public domain",
+    "regions": 5,
+    "area": 59999,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  },
+  {
+    "code": "it-55",
+    "included": true,
+    "digest": "8fe35b4c7d8210dbd12f82205c8269433a6c88bd38b226c929bb147eb16c0347",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-55.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Umbria_(de_jure).svg",
+    "license": "CC BY-SA 4.0",
+    "regions": 4,
+    "area": 60000,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Ordine di pittura uniformato a riempimento e poi contorno.",
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  },
+  {
+    "code": "it-23",
+    "included": true,
+    "digest": "226367fb962e3ba1cff03ee51533f329328bd3c479ef07fa9e79d96b84d3ef19",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-23.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Valle_d%27Aosta.svg",
+    "license": "Public domain",
+    "regions": 2,
+    "area": 60000,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  },
+  {
+    "code": "it-34",
+    "included": true,
+    "digest": "d3984911880c6d2c30837e43c5bb93a91a9dc63204b24930784a5f3c0eb7dc2d",
+    "engineHash": "9c5345c28fd5198f1c5b8e1a5398a3895926e8bfbc7ed2bfae31e7922ec692d9",
+    "compactVersion": 2,
+    "assetPath": "assets/regions/flat/it-34.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Veneto.svg",
+    "license": "CC BY-SA 3.0",
+    "regions": 49,
+    "area": 58293,
+    "areaMethod": "Punti geometrici al centro delle celle 300×200; bounds dei tracciati verificati separatamente",
+    "adaptations": [
+      "Microtesti del libro del leone rimossi: la dimensione sorgente è inferiore a un pixel nel riquadro di gioco.",
+      "Sfumature sostituite con un colore piatto da uno stop centrale del gradiente.",
+      "Semitrasparenze dello stemma rese opache per il motore a colori piatti.",
+      "Curve finali convertite in segmenti vettoriali con tolleranza 0,03 px a 300×200 e coordinate a 4 decimali."
+    ]
+  }
+]

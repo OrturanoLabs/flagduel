@@ -10,3 +10,5 @@ test-results/
 *.log
 *.tsbuildinfo
 CODEX_PROMPT_FLAG_DUEL.md
+
+.cache/

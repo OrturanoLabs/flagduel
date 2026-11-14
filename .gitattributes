@@ -2,3 +2,10 @@
 *.png binary
 # Preserve upstream formatting in collected third-party license texts.
 **/THIRD_PARTY_LICENSES.txt -whitespace
+
+# Gli originali Commons sono verificati tramite SHA-1: non normalizzare i byte.
+assets/regions/source/*.svg -text -whitespace
+
+# SVG derivati e testi upstream conservano la formattazione delle sorgenti.
+assets/regions/flat/*.svg -whitespace
+third_party/upstream/CC-BY-SA-*.txt -whitespace

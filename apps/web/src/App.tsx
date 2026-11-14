@@ -20,12 +20,14 @@ const makeId = () =>
 const countryName = (countries: Country[], code: string) =>
   countries.find((c) => c.code === code)?.name ?? code;
 
-function useCatalog() {
+function useCatalog(catalogSet: Snapshot["catalogSet"]) {
   const [countries, setCountries] = useState<Country[]>([]);
   const [error, setError] = useState("");
   useEffect(() => {
     let live = true;
-    fetch("/api/catalog")
+    setCountries([]);
+    setError("");
+    fetch(`/api/catalog?set=${catalogSet}`)
       .then((r) => {
         if (!r.ok) throw new Error("Catalogo non disponibile");
         return r.json() as Promise<Country[]>;
@@ -42,7 +44,7 @@ function useCatalog() {
     return () => {
       live = false;
     };
-  }, []);
+  }, [catalogSet]);
   return { countries, error };
 }
 function useGame() {
@@ -431,16 +433,18 @@ function CountryPicker({
               <span>{c.name}</span>
             </button>
           ))}
-          {!options.length && <p>Nessun paese trovato</p>}
+          {!options.length && <p>Nessuna bandiera trovata</p>}
         </div>
       )}
     </div>
   );
 }
 export default function App() {
-  const { countries, error: catalogError } = useCatalog();
   const game = useGame();
   const snap = game.snapshot;
+  const { countries, error: catalogError } = useCatalog(
+    snap?.catalogSet ?? "world",
+  );
   const solo = snap?.mode === "solo";
   const experimental = !!(
     snap?.experiments.colorShift || snap?.experiments.noMemory
@@ -899,7 +903,9 @@ export default function App() {
               aria-atomic="true"
               data-testid="lobby-settings-summary"
             >
-              {solo ? "Singolo" : "PvP"} · Tolleranza{" "}
+              {solo ? "Singolo" : "PvP"}
+              {snap.catalogSet === "italian_regions" && " · Regioni italiane"} ·
+              Tolleranza{" "}
               {
                 { precise: "Precisa", standard: "Standard", broad: "Ampia" }[
                   snap.tolerance
@@ -947,6 +953,30 @@ export default function App() {
                   </button>
                 ))}
               </div>
+              <p>Extra</p>
+              <button
+                type="button"
+                role="switch"
+                aria-label="Regioni italiane"
+                aria-checked={snap.catalogSet === "italian_regions"}
+                className="secondary experimental-switch"
+                disabled={
+                  snap.hostId !== me?.id || game.busy || !game.connected
+                }
+                onClick={() =>
+                  void game.command("set_catalog", {
+                    catalogSet:
+                      snap.catalogSet === "italian_regions"
+                        ? "world"
+                        : "italian_regions",
+                  })
+                }
+              >
+                <span>
+                  Regioni italiane <small>20 bandiere</small>
+                </span>
+                <span className="switch-track" aria-hidden="true" />
+              </button>
               <p>Sperimentali</p>
               <div
                 className="experimental-options"

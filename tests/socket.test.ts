@@ -293,3 +293,100 @@ it("esperimenti via Socket.IO: toggle sincronizzati, permessi e colori conservat
     await new Promise<void>((r) => io.close(() => r()));
   }
 }, 15000);
+
+it("catalogo regionale: API, scelta host, ospite sincronizzato e riconnessione", async () => {
+  const { http, io, rooms } = createApp();
+  await new Promise<void>((r) => http.listen(0, "127.0.0.1", r));
+  const url = `http://127.0.0.1:${(http.address() as { port: number }).port}`;
+  const sockets: Socket[] = [];
+  async function connect() {
+    const s = client(url, {
+      forceNew: true,
+      reconnection: false,
+      transports: ["websocket"],
+    });
+    sockets.push(s);
+    await new Promise<void>((r) => s.on("connect", r));
+    return s;
+  }
+  try {
+    const a = await connect(),
+      b = await connect();
+    const created = await send(a, { type: "create", nickname: "Ada" });
+    const joined = await send(b, {
+      type: "join",
+      nickname: "Bruno",
+      code: created.state!.code,
+    });
+    const g = rooms.get(created.state!.code)!;
+    let guestState: Snapshot | undefined;
+    b.on("state", (s) => {
+      guestState = s;
+    });
+    expect(
+      (
+        await send(b, {
+          type: "set_catalog",
+          catalogSet: "italian_regions",
+          version: g.version,
+        })
+      ).error,
+    ).toContain("Solo il creatore");
+    const selected = await send(a, {
+      type: "set_catalog",
+      catalogSet: "italian_regions",
+      version: g.version,
+    });
+    expect(selected.ok).toBe(true);
+    expect(selected.state!.catalogSet).toBe("italian_regions");
+    await expect.poll(() => guestState?.catalogSet).toBe("italian_regions");
+    expect(
+      (await fetch(url + "/api/catalog").then((r) => r.json())).length,
+    ).toBe(195);
+    const regional = await fetch(url + "/api/catalog?set=italian_regions").then(
+      (r) => r.json(),
+    );
+    expect(regional).toHaveLength(20);
+    expect(
+      regional.find((f: { code: string }) => f.code === "it-25").name,
+    ).toBe("Lombardia");
+    expect(JSON.stringify(regional)).not.toContain('"regions"');
+    expect((await fetch(url + "/api/catalog?set=invalid")).status).toBe(400);
+    const image = await fetch(url + "/api/flags/it-25.svg");
+    expect(image.status).toBe(200);
+    expect(await image.text()).toContain("<svg");
+    b.disconnect();
+    const restored = await connect();
+    const resumed = await send(restored, {
+      type: "resume",
+      token: joined.token,
+    });
+    expect(resumed.state!.catalogSet).toBe("italian_regions");
+    await send(a, { type: "start", version: g.version });
+    expect(g.secret).toMatch(/^it-\d{2}$/);
+    const active = g.active === created.playerId ? a : restored;
+    expect(
+      (await send(active, { type: "probe", country: "fr", version: g.version }))
+        .error,
+    ).toBe("Bandiera non valida");
+    const solved = await send(active, {
+      type: "probe",
+      country: g.secret,
+      version: g.version,
+    });
+    expect(solved.state!.phase).toBe("between_rounds");
+    expect(solved.state!.solution).toMatch(/^it-\d{2}$/);
+    expect(
+      (
+        await send(a, {
+          type: "set_catalog",
+          catalogSet: "world",
+          version: g.version,
+        })
+      ).error,
+    ).toContain("lobby");
+  } finally {
+    sockets.forEach((s) => s.disconnect());
+    await new Promise<void>((r) => io.close(() => r()));
+  }
+}, 30000);

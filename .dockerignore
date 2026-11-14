@@ -9,3 +9,5 @@ playwright-report
 .env.*
 !.env.example
 CODEX_PROMPT_FLAG_DUEL.md
+
+.cache/

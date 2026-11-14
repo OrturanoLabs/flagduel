@@ -6,6 +6,7 @@ import path from "node:path";
 import { Server } from "socket.io";
 import { z } from "zod";
 import {
+  catalogSetSchema,
   colorTolerances,
   commandSchema,
   type Ack,
@@ -31,11 +32,18 @@ const config = {
     )
     .parse(process.env.TOLERANCE ?? 0.04),
 };
+const regionalCatalog: Flag[] = JSON.parse(
+  readFileSync("assets/generated/regions-catalog.json", "utf8"),
+);
 export function createApp(
   catalog: Flag[] = JSON.parse(
     readFileSync("assets/generated/catalog.json", "utf8"),
   ),
-  makeGame: (code: string) => Game = (code) => new Game(code, catalog, config),
+  makeGame: (code: string) => Game = (code) =>
+    new Game(code, catalog, config, undefined, undefined, undefined, {
+      italian_regions: regionalCatalog,
+    }),
+  options: { maxCreatesPerMinute?: number } = {},
 ) {
   const app = express(),
     http = createServer(app),
@@ -58,18 +66,25 @@ export function createApp(
   }
   app.use(express.json({ limit: "4kb" }));
   app.get("/health", (_, res) => res.json({ ok: true }));
-  app.get("/api/catalog", (_, res) =>
+  const catalogs = { world: catalog, italian_regions: regionalCatalog };
+  const allFlags = [...catalog, ...regionalCatalog];
+  app.get("/api/catalog", (req, res) => {
+    const selected = catalogSetSchema.safeParse(req.query.set ?? "world");
+    if (!selected.success) {
+      res.status(400).json({ error: "Catalogo non valido" });
+      return;
+    }
     res.json(
-      catalog.map(({ code, name, en }) => ({
+      catalogs[selected.data].map(({ code, name, en }) => ({
         code,
         name,
         en,
         svg: `/api/flags/${code}.svg`,
       })),
-    ),
-  );
+    );
+  });
   app.get("/api/flags/:code.svg", (req, res) => {
-    const flag = catalog.find((f) => f.code === req.params.code);
+    const flag = allFlags.find((f) => f.code === req.params.code);
     if (!flag) {
       res.sendStatus(404);
       return;
@@ -94,8 +109,8 @@ export function createApp(
         res.status(400).json({ error: "Input non valido" });
         return;
       }
-      const a = catalog.find((f) => f.code === parsed.data.a),
-        b = catalog.find((f) => f.code === parsed.data.b);
+      const a = allFlags.find((f) => f.code === parsed.data.a),
+        b = allFlags.find((f) => f.code === parsed.data.b);
       if (!a || !b) {
         res.sendStatus(400);
         return;
@@ -155,7 +170,10 @@ export function createApp(
             if (!c.nickname) throw Error("Nickname obbligatorio");
             if (c.type === "create") {
               if (
-                !allowed("create:" + socket.handshake.address, 12) ||
+                !allowed(
+                  "create:" + socket.handshake.address,
+                  options.maxCreatesPerMinute ?? 12,
+                ) ||
                 rooms.size >= 500
               )
                 throw Error("Limite creazione stanze");

@@ -4,6 +4,8 @@ export const colorTolerances = {
   standard: 0.04,
   broad: 0.1,
 } as const;
+export const catalogSetSchema = z.enum(["world", "italian_regions"]);
+export type CatalogSet = z.infer<typeof catalogSetSchema>;
 export type ColorTolerance = keyof typeof colorTolerances;
 export const experimentsSchema = z
   .object({
@@ -20,6 +22,7 @@ export const commandSchema = z
       "resume",
       "start",
       "set_mode",
+      "set_catalog",
       "set_tolerance",
       "set_experiments",
       "probe",
@@ -29,6 +32,7 @@ export const commandSchema = z
       "draw",
       "decline_draw",
     ]),
+    catalogSet: catalogSetSchema.optional(),
     experiments: experimentsSchema.optional(),
     tolerance: z.enum(["precise", "standard", "broad"]).optional(),
     mode: z.enum(["pvp", "solo"]).optional(),
@@ -43,7 +47,7 @@ export const commandSchema = z
       .optional(),
     country: z
       .string()
-      .regex(/^[a-z]{2}$/)
+      .regex(/^(?:[a-z]{2}|it-[0-9]{2})$/)
       .optional(),
     actionId: z.string().min(8).max(80),
     version: z.number().int().nonnegative().optional(),
@@ -69,6 +73,7 @@ export interface Result {
 export type GameMode = "pvp" | "solo";
 export interface Snapshot {
   mode: GameMode;
+  catalogSet: CatalogSet;
   experiments: Experiments;
   tolerance: ColorTolerance;
   code: string;
