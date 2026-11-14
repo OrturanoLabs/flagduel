@@ -101,8 +101,8 @@ label {
   color: var(--muted);
 }
 .entry-screen {
-  height: var(--viewport-height, 100dvh);
-  min-height: 280px;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
   padding: 24px;
@@ -575,4 +575,81 @@ label {
   padding: 12px;
   white-space: nowrap;
   min-height: 48px;
+}
+
+.mode-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.mode-choice {
+  font-size: 12px;
+  padding: 10px;
+  white-space: nowrap;
+  min-height: 44px;
+}
+.mode-choice[aria-checked="true"] {
+  background: var(--accent);
+  color: #201c2d;
+  border-color: var(--accent);
+}
+.solo-title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.7px;
+}
+.solo-player {
+  justify-content: center;
+}
+
+.advanced-settings {
+  text-align: left;
+  font-size: 13px;
+}
+.advanced-settings summary {
+  cursor: pointer;
+  padding: 10px 0;
+}
+.advanced-settings p {
+  margin: 8px 0;
+}
+.advanced-settings > small {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+}
+.tolerance-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.tolerance-choice {
+  flex-direction: column;
+  gap: 4px;
+}
+.tolerance-choice small {
+  font-size: 11px;
+}
+
+.picker-options [aria-selected="true"] {
+  background: var(--accent);
+  color: #201c2d;
+}
+
+.lobby-settings-summary {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Il form d'ingresso segue lo scroll nativo durante l'apertura/chiusura della
+   tastiera: niente overlay fixed, backdrop-filter o contenitori scroll annidati. */
+.entry-form-shell {
+  width: min(100%, 360px);
+}
+.entry-form-shell .dialog {
+  width: 100%;
+  max-height: none;
+  overflow: visible;
 }

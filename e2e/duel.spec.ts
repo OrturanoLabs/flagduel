@@ -43,10 +43,15 @@ async function pick(
 }
 test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, sette mani e rientro", async ({
   browser,
+  browserName,
   request,
 }) => {
   const a = await browser.newContext({ viewport: { width: 390, height: 844 } }),
-    b = await browser.newContext({ viewport: { width: 375, height: 667 } });
+    b = await browser.newContext({
+      viewport: { width: 375, height: 667 },
+      hasTouch: true,
+      ...(browserName === "chromium" ? { isMobile: true } : {}),
+    });
   const pageA = await a.newPage(),
     pageB = await b.newPage();
   const errors: string[] = [];
@@ -63,16 +68,139 @@ test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, se
     .inputValue();
   await pageB.goto(invite);
   await pageB.getByLabel("Nickname").fill("Bruno");
+  await expect(pageB.locator(".overlay")).toHaveCount(0);
+  await expect(pageB.locator(".entry-form-shell")).toBeVisible();
+  const formAncestors = await pageB.locator("#nickname").evaluate((el) => {
+    const values = [];
+    for (
+      let current: Element | null = el;
+      current;
+      current = current.parentElement
+    ) {
+      const style = getComputedStyle(current);
+      values.push({ position: style.position, backdrop: style.backdropFilter });
+    }
+    return values;
+  });
+  expect(
+    formAncestors.some(
+      (style) => style.position === "fixed" || style.backdrop !== "none",
+    ),
+  ).toBe(false);
+  // Tastiera aperta al tocco; altezza e offset vengono ripristinati in ritardo.
+  await pageB.evaluate(() => {
+    let height = 280,
+      offset = 70;
+    const viewport = window.visualViewport!;
+    Object.defineProperty(viewport, "height", {
+      configurable: true,
+      get: () => height,
+    });
+    Object.defineProperty(viewport, "offsetTop", {
+      configurable: true,
+      get: () => offset,
+    });
+    document.getElementById("nickname")!.addEventListener(
+      "blur",
+      () => {
+        window.setTimeout(() => {
+          height = window.innerHeight;
+          offset = 0;
+          document.documentElement.dataset.keyboardRestored = "true";
+          // Volutamente senza evento resize: il browser può ometterlo.
+        }, 550);
+      },
+      { once: true },
+    );
+  });
   await pageB
     .getByRole("button", { name: "Entra in stanza", exact: true })
-    .click();
+    .tap();
+  await expect(pageB.getByTestId("room-code")).toBeVisible();
+  await expect(pageB.locator("html")).toHaveAttribute(
+    "data-keyboard-restored",
+    "true",
+  );
+  await expect(pageB.getByRole("dialog")).toHaveCount(0);
+  await pageB.evaluate(() => {
+    Reflect.deleteProperty(window.visualViewport!, "height");
+    Reflect.deleteProperty(window.visualViewport!, "offsetTop");
+  });
+  // Verifica anche una misura obsoleta ricevuta dopo l'ingresso.
+
+  await pageB.evaluate(() => {
+    Object.defineProperty(window.visualViewport!, "height", {
+      configurable: true,
+      get: () => 280,
+    });
+    window.visualViewport!.dispatchEvent(new Event("resize"));
+  });
+
+  await expect(pageB.getByTestId("room-code")).toBeVisible();
+  await expect
+    .poll(() =>
+      pageB
+        .locator(".entry-screen")
+        .evaluate((el) => el.getBoundingClientRect().height),
+    )
+    .toBeGreaterThanOrEqual(667);
+  await expect
+    .poll(() =>
+      pageB.evaluate(() =>
+        document.documentElement.style.getPropertyValue("--viewport-height"),
+      ),
+    )
+    .toBe("");
+  const exitBox = await pageB
+    .getByRole("button", { name: "Esci", exact: true })
+    .boundingBox();
+  expect(exitBox).not.toBeNull();
+  expect(exitBox!.y).toBeGreaterThanOrEqual(0);
+  expect(exitBox!.y + exitBox!.height).toBeLessThanOrEqual(667);
+  await pageB.evaluate(() => {
+    Reflect.deleteProperty(window.visualViewport!, "height");
+    window.visualViewport!.dispatchEvent(new Event("resize"));
+  });
   await expect(
     pageB.getByRole("button", { name: "Inizia la partita" }),
   ).toHaveCount(0);
+  await expect(
+    pageA.getByRole("radio", { name: "Giocatore singolo", exact: true }),
+  ).toBeDisabled();
+  await expect(
+    pageB.getByRole("radio", { name: "PvP", exact: true }),
+  ).toBeDisabled();
+  const guestSettings = pageB.getByTestId("lobby-settings-summary");
+  await expect(guestSettings).toHaveText("PvP · Tolleranza Standard");
+  await expect(pageA.getByTestId("lobby-settings-summary")).toHaveCount(0);
+  await pageA.getByText("Impostazioni avanzate", { exact: true }).click();
+  await pageA.getByRole("radio", { name: /Precisa/ }).click();
+  await expect(guestSettings).toHaveText("PvP · Tolleranza Precisa");
+  await expect(guestSettings).toBeVisible();
+  await expect(pageB.locator(".advanced-settings")).not.toHaveAttribute(
+    "open",
+    "",
+  );
+  await pageA.getByRole("radio", { name: /Ampia/ }).click();
+  await expect(guestSettings).toHaveText("PvP · Tolleranza Ampia");
+  await pageA.getByRole("radio", { name: /Precisa/ }).click();
+  await pageB.getByText("Impostazioni avanzate", { exact: true }).click();
+
+  await expect(pageB.getByRole("radio", { name: /Precisa/ })).toBeChecked();
+  await expect(pageB.getByRole("radio", { name: /Ampia/ })).toBeDisabled();
+  await pageA.getByRole("radio", { name: /Standard/ }).click();
+  await expect(guestSettings).toHaveText("PvP · Tolleranza Standard");
   await pageA.getByRole("button", { name: "Inizia la partita" }).click();
   await expect(pageA.getByTestId("own-player")).toContainText("Ada");
   await expect(pageB.getByTestId("own-player")).toContainText("Bruno");
   await expect(pageA.getByTestId("opponent-player")).toContainText("Bruno");
+  await pageB.evaluate(() => {
+    (document.activeElement as HTMLElement)?.blur();
+  });
+  await pageB.keyboard.type("Italia");
+  await expect(
+    pageB.getByRole("combobox", { name: "Scegli una bandiera" }),
+  ).toHaveValue("");
   const probes = [
     "Francia",
     "Russia",
@@ -101,14 +229,20 @@ test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, se
       await input.press("Enter");
     } else {
       await pick(p, probes[i]);
-      await p.getByRole("button", { name: "Sonda", exact: true }).click();
+      const submit = p.getByRole("button", { name: "Sonda", exact: true });
+      if (i === 1) {
+        await submit.focus();
+        await submit.press("Space");
+      } else await submit.click();
     }
     await expect(pageA.getByTestId("attempt")).toHaveCount(i + 1);
     await expect(pageB.getByTestId("attempt")).toHaveCount(i + 1);
     await withinScreen(pageA);
     await withinScreen(pageB);
-    if (i < 5)
-      await p.getByRole("button", { name: "Passa", exact: true }).click();
+    if (i < 5) {
+      await p.evaluate(() => (document.activeElement as HTMLElement)?.blur());
+      await p.keyboard.press("Enter");
+    }
   }
   await pageA.screenshot({ path: "test-results/obsidian-six-attempts.png" });
   await pageB.screenshot({ path: "test-results/obsidian-small-phone.png" });
@@ -121,8 +255,12 @@ test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, se
   await pageB.setViewportSize({ width: 375, height: 667 });
   await pageB.getByRole("button", { name: "Risolvi", exact: true }).click();
   const answer = pageB.getByRole("combobox", { name: "La tua risposta" });
-  await answer.fill("Bangla");
-  await answer.press("Enter");
+  await pageB.evaluate(() => {
+    (document.activeElement as HTMLElement)?.blur();
+  });
+  await pageB.keyboard.type("Bangla");
+  await expect(answer).toHaveValue("Bangla");
+  await pageB.keyboard.press("Enter");
   await expect(answer).toHaveValue("Bangladesh");
   await expect(answer).toBeFocused();
   await expect(
@@ -165,6 +303,10 @@ test("obsidian mobile: creatore, codice breve, sei tentativi, nessuno scroll, se
   expect(licenseText).toContain("@catamphetamine");
   expect(licenseText).toContain("Google Inc.");
   await pageA.getByRole("button", { name: "Menu stanza" }).click();
+  const menu = pageA.getByRole("dialog", { name: "Menu PvP" });
+  await expect(menu.getByText("Copia invito")).toHaveCount(0);
+  await expect(menu.getByText("Mano 7")).toBeVisible();
+  await expect(menu).not.toContainText("Ultima mano");
   await pageA.getByRole("button", { name: "Esci dalla stanza" }).click();
   await expect(
     pageA.getByRole("button", { name: "Crea stanza" }),

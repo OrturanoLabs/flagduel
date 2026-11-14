@@ -103,3 +103,82 @@ it("due client, terzo escluso, snapshot coerenti, ripristino identità e creator
     await new Promise<void>((r) => io.close(() => r()));
   }
 }, 15000);
+it("singolo via Socket.IO: lobby, blocco ingressi, tentativo e rientro senza reset", async () => {
+  const { http, io, rooms } = createApp();
+  await new Promise<void>((r) => http.listen(0, "127.0.0.1", r));
+  const url = `http://127.0.0.1:${(http.address() as { port: number }).port}`;
+  const sockets: Socket[] = [];
+  async function connect() {
+    const s = client(url, {
+      forceNew: true,
+      reconnection: false,
+      transports: ["websocket"],
+    });
+    sockets.push(s);
+    await new Promise<void>((r) => s.on("connect", r));
+    return s;
+  }
+  try {
+    const a = await connect(),
+      b = await connect();
+    const created = await send(a, { type: "create", nickname: "Solo" });
+    const mode = await send(a, {
+      type: "set_mode",
+      mode: "solo",
+      version: created.state!.version,
+    });
+    expect(mode.state!.mode).toBe("solo");
+    expect(
+      (
+        await send(b, {
+          type: "join",
+          nickname: "Ospite",
+          code: created.state!.code,
+        })
+      ).error,
+    ).toContain("singolo");
+    const started = await send(a, {
+      type: "start",
+      version: mode.state!.version,
+    });
+    expect(started.ok).toBe(true);
+    const g = rooms.get(created.state!.code)!;
+    const wrong = g.catalog.find((f) => f.code !== g.secret)!.code;
+    const probe = await send(a, {
+      type: "probe",
+      country: wrong,
+      version: started.state!.version,
+    });
+    expect(probe.state!.subphase).toBe("choose_probe");
+    expect(probe.state!.history).toHaveLength(1);
+    expect(probe.state!.solution).toBeUndefined();
+    a.disconnect();
+    await new Promise((r) => setTimeout(r, 20));
+    const restored = await connect();
+    const resumed = await send(restored, {
+      type: "resume",
+      token: created.token,
+    });
+    expect(resumed.playerId).toBe(created.playerId);
+    expect(resumed.state!.mode).toBe("solo");
+    expect(resumed.state!.history).toEqual(probe.state!.history);
+    expect(resumed.state!.players).toHaveLength(1);
+    const solved = await send(restored, {
+      type: "probe",
+      country: g.secret,
+      version: resumed.state!.version,
+    });
+    expect(solved.state!.phase).toBe("between_rounds");
+    expect(solved.state!.players[0].score).toBe(1);
+    const next = await send(restored, {
+      type: "ready",
+      version: solved.state!.version,
+    });
+    expect(next.state!.phase).toBe("playing");
+    expect(next.state!.round).toBe(2);
+    expect(next.state!.history).toHaveLength(0);
+  } finally {
+    sockets.forEach((s) => s.disconnect());
+    await new Promise<void>((r) => io.close(() => r()));
+  }
+}, 15000);

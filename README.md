@@ -1,8 +1,8 @@
 # Flag Duel
 
-Un duello di bandiere per due giocatori. Scegli una bandiera-sonda, scopri le zone con colori simili e prova a indovinare quella segreta prima dell’avversario.
+Indovina le bandiere in singolo o sfida un amico in PvP. Ogni tentativo rivela le zone geometriche con colori simili alla bandiera segreta.
 
-**195 Paesi · stanze private · nessun account · nessun timer · mani illimitate**
+**Singolo e PvP · 195 Paesi · stanze private · nessun account · nessun timer · mani illimitate**
 
 <img src="docs/screenshots/game.png" width="300" alt="Flag Duel su smartphone: punteggi, bandiera misteriosa, sei tentativi e azioni nella stessa schermata" />
 
@@ -28,7 +28,16 @@ HOST=127.0.0.1 npm start
 
 La prima build elabora gli asset locali; le successive riusano la cache se sorgenti e motore non sono cambiati. Non vengono scaricate bandiere durante il gioco.
 
-## Come si gioca
+## Giocatore singolo
+
+1. Crea una stanza, scegli **Giocatore singolo** nella lobby e avvia senza aspettare un ospite.
+2. Ogni Paese inviato è un tentativo diretto. Se è sbagliato, ricevi l'indizio e puoi provare subito un altro Paese: non ci sono Risolvi o Passa.
+3. Hai **6 tentativi distinti** per bandiera (configurabili con `MAX_PROBES`). La risposta corretta vince anche all'ultimo tentativo; esaurendoli senza soluzione, la mano termina e mostra la bandiera.
+4. Il punteggio conta le bandiere indovinate. **Prossima mano** riparte subito, mantenendo il punteggio. Refresh e riconnessione non azzerano indizi o tentativi.
+
+La modalità si sceglie solo nella lobby, dal creatore. Una stanza singola non accetta ospiti; se un avversario è già entrato in PvP, non si può passare a singolo.
+
+## PvP
 
 1. Crea una stanza e condividi il codice di tre caratteri o il link.
 2. L’avversario entra; **solo il creatore può avviare**.
@@ -36,9 +45,9 @@ La prima build elabora gli asset locali; le successive riusano la cache se sorge
 4. Dopo la sonda scegli **Risolvi** oppure **Passa**. La risposta definitiva parte subito, senza un secondo dialogo: se è errata, il punto va all’avversario. Una sonda con il codice Paese esatto vince immediatamente.
 5. Dopo la mano entrambi scelgono **Prossima mano**. Il primo giocatore si alterna e il punteggio continua finché volete giocare.
 
-Ci sono sei sonde distinte per mano; dopo la sesta si può ancora risolvere, mentre Passa termina la mano in pareggio. Nessun timeout. Il menu centrale permette di uscire dalla stanza.
+Ci sono sei sonde distinte per mano; dopo la sesta si può ancora risolvere, mentre Passa termina la mano in pareggio. Nessun timeout. Il menu centrale permette di uscire dalla stanza. In singolo contiene solo l’uscita (oltre alla chiusura del menu); il menu PvP non propone inviti durante la partita.
 
-Nel campo Paese, **primo Invio seleziona il risultato migliore, secondo Invio invia**. Il selettore mostra solo i nomi; la cronologia mostra le sonde già giocate e le regioni trovate. L’interfaccia obsidian è pensata per smartphone, senza scroll della pagina di gioco.
+Durante il gioco la digitazione va nella barra Paese anche senza focus, quando il campo è abilitato. **Invio a campo vuoto non fa nulla; con testo da completare seleziona il risultato migliore; con un nome già selezionato lo invia.** I menu aperti, gli altri campi di testo e le scorciatoie del browser mantengono i propri comandi. Il selettore mostra solo i nomi; la cronologia mostra le sonde già giocate e le regioni trovate. L’interfaccia obsidian è pensata per smartphone, senza scroll della pagina di gioco.
 
 ## Sviluppo
 
@@ -70,7 +79,7 @@ docker compose up --build -d
 
 Il prototipo usa HTTP e una VPN già configurata; non serve HTTPS. HTTP non aggiunge TLS. Non inoltrare la porta sul router e verifica la raggiungibilità effettiva e le regole Docker/firewall. I dettagli sono in [docs/deployment.md](docs/deployment.md).
 
-Configurazione: `BIND_ADDRESS`, `PORT`, `TOLERANCE=0.04`, `MAX_PROBES=6`. Senza Docker, esporta le variabili nella shell: Node non legge automaticamente `.env`.
+Configurazione: `BIND_ADDRESS`, `PORT`, `TOLERANCE=0.04` (preset iniziale: solo `0.02`, `0.04` o `0.1`), `MAX_PROBES=6`. Senza Docker, esporta le variabili nella shell: Node non legge automaticamente `.env`.
 
 ## Test
 
@@ -82,7 +91,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Vitest verifica colori, geometria, corpus, regole e Socket.IO. Playwright prova due smartphone separati, tutte le azioni fino a sette mani, refresh, tastiera e layout; un secondo scenario confronta visivamente tutti i 195 SVG con il rendering delle superfici preprocessate. La porta 8080 deve essere libera durante gli E2E.
+Vitest verifica colori, geometria, corpus, regole e Socket.IO. Playwright prova due smartphone separati, tutte le azioni fino a sette mani, refresh, tastiera e layout; un secondo scenario confronta visivamente tutti i 195 SVG con il rendering delle superfici preprocessate. Gli E2E usano per default la porta 8080. Se il gioco è già avviato, esegui `FLAG_DUEL_TEST_PORT=8083 npm run test:e2e` per usare una porta separata.
 
 Esiti e limiti delle prove: [docs/verification.md](docs/verification.md). Docker/Linux e due computer fisici in VPN devono essere verificati sull’ambiente di destinazione.
 
@@ -117,3 +126,9 @@ Le bandiere e le librerie conservano le loro licenze. Le principali fonti degli 
 - [Fonti degli asset, del catalogo e del metodo](docs/sources.md)
 
 Una citazione o un link aiutano a rintracciare la fonte, ma **non sostituiscono i testi di licenza e gli avvisi di copyright richiesti**. Gli avvisi distribuiti si rigenerano con `npm run licenses` e sono inclusi anche su `/THIRD_PARTY_LICENSES.txt` nell’app avviata.
+
+Nella lobby, **Impostazioni avanzate** permette al creatore di scegliere la tolleranza dei colori: Precisa (ΔE OKLab 0,02), Standard (0,04, valore precedente) o Ampia (0,1). La scelta vale per entrambi i giocatori e tutte le mani successive, anche in singolo; non può cambiare durante la partita.
+
+Tastiera: Freccia su/giù navigano i suggerimenti; Invio conferma quello evidenziato e, al secondo invio, invia il Paese. Quando disponibili e senza un altro controllo a fuoco, Invio attiva Passa o Prossima mano. Il menu aperto sospende queste scorciatoie.
+
+Per eseguire i test browser anche con Firefox: `npx playwright install firefox`, poi `FLAG_DUEL_TEST_BROWSER=firefox FLAG_DUEL_TEST_PORT=8083 npm run test:e2e`. La suite desktop con viewport mobile e touch non sostituisce una prova della tastiera nativa su Android.

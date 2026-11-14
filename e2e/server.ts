@@ -17,4 +17,4 @@ const { http } = createApp(
       () => 0,
     ),
 );
-http.listen(8080, "127.0.0.1");
+http.listen(Number(process.env.FLAG_DUEL_TEST_PORT ?? 8080), "127.0.0.1");

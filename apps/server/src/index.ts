@@ -5,7 +5,11 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { Server } from "socket.io";
 import { z } from "zod";
-import { commandSchema, type Ack } from "../../../packages/shared/src/index";
+import {
+  colorTolerances,
+  commandSchema,
+  type Ack,
+} from "../../../packages/shared/src/index";
 import { Game, defaults, type Flag } from "./game";
 import { reveal, area } from "../../../packages/flag-engine/src/index";
 const envInt = (n: string, d: number) =>
@@ -21,6 +25,10 @@ const config = {
     .number()
     .min(0)
     .max(1)
+    .refine(
+      (value) => Object.values(colorTolerances).some((t) => t === value),
+      "TOLERANCE deve essere 0.02, 0.04 oppure 0.1",
+    )
     .parse(process.env.TOLERANCE ?? 0.04),
 };
 export function createApp(

@@ -1,3 +1,7 @@
+import {
+  colorTolerances,
+  type ColorTolerance,
+} from "../../../packages/shared/src/index";
 import { randomInt, randomBytes } from "node:crypto";
 import type {
   Command,
@@ -22,8 +26,10 @@ export const defaults: Config = {
   tolerance: 0.04,
 };
 export class Game {
+  tolerance: ColorTolerance;
   version = 0;
   phase: Snapshot["phase"] = "waiting";
+  mode: Snapshot["mode"] = "pvp";
   players: Player[] = [];
   round = 0;
   active = "";
@@ -43,8 +49,16 @@ export class Game {
     public config: Config = defaults,
     private choose: () => number = () => randomInt(catalog.length),
     private coin: () => number = () => randomInt(2),
-  ) {}
+  ) {
+    const preset = (Object.keys(colorTolerances) as ColorTolerance[]).find(
+      (key) => colorTolerances[key] === config.tolerance,
+    );
+    if (!preset) throw Error("TOLERANCE deve essere 0.02, 0.04 oppure 0.1");
+    this.tolerance = preset;
+  }
   add(nickname: string) {
+    if (this.mode === "solo" && this.players.length)
+      throw Error("Partita in singolo: ingressi non consentiti");
     if (this.players.length >= 2) throw Error("Stanza piena");
     const p = {
       id: randomBytes(12).toString("hex"),
@@ -61,6 +75,8 @@ export class Game {
   snapshot(): Snapshot {
     return {
       code: this.code,
+      mode: this.mode,
+      tolerance: this.tolerance,
       version: this.version,
       phase: this.phase,
       players: this.players.map((p) => ({ ...p })),
@@ -79,7 +95,8 @@ export class Game {
   next() {
     this.round++;
     this.secret = this.catalog[this.choose()].code;
-    this.active = this.players[(this.first + this.round - 1) % 2].id;
+    this.active =
+      this.players[(this.first + this.round - 1) % this.players.length].id;
     this.phase = "playing";
     this.subphase = "choose_probe";
     this.turn = 1;
@@ -109,15 +126,36 @@ export class Game {
     this.seen.set(id, seen);
     if (seen.has(c.actionId)) return;
     if (c.version !== this.version) throw Error("Stato aggiornato: riprova");
-    if (c.type === "start") {
+    if (c.type === "set_tolerance") {
+      if (id !== this.hostId)
+        throw Error("Solo il creatore può scegliere la tolleranza");
+      if (this.phase !== "waiting")
+        throw Error("La tolleranza si sceglie nella lobby");
+      if (!c.tolerance || !Object.hasOwn(colorTolerances, c.tolerance))
+        throw Error("Seleziona una tolleranza valida");
+      this.tolerance = c.tolerance;
+    } else if (c.type === "set_mode") {
+      if (id !== this.hostId)
+        throw Error("Solo il creatore può scegliere la modalità");
+      if (this.phase !== "waiting")
+        throw Error("La modalità si sceglie nella lobby");
+      if (!c.mode) throw Error("Seleziona una modalità");
+      if (c.mode === "solo" && this.players.length !== 1)
+        throw Error("La modalità singolo richiede un solo giocatore");
+      this.mode = c.mode;
+    } else if (c.type === "start") {
       if (id !== this.hostId)
         throw Error("Solo il creatore può avviare la partita");
       if (
         this.phase !== "waiting" ||
-        this.players.length !== 2 ||
+        this.players.length !== (this.mode === "solo" ? 1 : 2) ||
         this.players.some((x) => !x.connected)
       )
-        throw Error("Servono due giocatori connessi");
+        throw Error(
+          this.mode === "solo"
+            ? "Serve un giocatore connesso"
+            : "Servono due giocatori connessi",
+        );
       this.first = this.coin();
       this.next();
     } else if (c.type === "ready") {
@@ -127,6 +165,8 @@ export class Game {
     } else {
       if (this.phase !== "playing" || id !== this.active)
         throw Error("Non è il tuo turno");
+      if (this.mode === "solo" && c.type !== "probe")
+        throw Error("In singolo invia un tentativo");
       const country = c.country;
       if (c.type === "probe" || c.type === "solve") {
         if (!this.catalog.some((f) => f.code === country))
@@ -143,22 +183,33 @@ export class Game {
           this.catalog.find((f) => f.code === country)!.regions,
           this.catalog.find((f) => f.code === this.secret)!.regions,
           [],
-          this.config.tolerance,
+          colorTolerances[this.tolerance],
         );
         this.history.push({
           country: country!,
           playerId: id,
           reveal: matched.map(({ d, color }) => ({ d, color })),
         });
-        if (country === this.secret) this.end(id, "Sonda esatta");
+        if (country === this.secret)
+          this.end(
+            id,
+            this.mode === "solo" ? "Risposta corretta" : "Sonda esatta",
+          );
         else {
           this.revealed = reveal(
             this.catalog.find((f) => f.code === country)!.regions,
             this.catalog.find((f) => f.code === this.secret)!.regions,
             this.revealed,
-            this.config.tolerance,
+            colorTolerances[this.tolerance],
           );
-          this.subphase = "choose_action";
+          if (this.mode === "solo") {
+            if (this.history.length >= this.config.maxProbes)
+              this.end(null, "Tentativi esauriti");
+            else {
+              this.subphase = "choose_probe";
+              this.turn++;
+            }
+          } else this.subphase = "choose_action";
         }
       } else if (c.type === "pass") {
         if (this.subphase !== "choose_action")

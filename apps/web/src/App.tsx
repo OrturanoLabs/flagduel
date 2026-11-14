@@ -8,6 +8,7 @@ import {
   MoreHorizontal,
   X,
 } from "lucide-react";
+import { colorTolerances } from "../../../packages/shared/src/index";
 import type { Ack, Command, Region, Snapshot } from "./protocol";
 
 type Country = { code: string; name: string; en: string; svg: string };
@@ -234,6 +235,7 @@ function CountryPicker({
   onChange,
   onSubmit,
   disabled = false,
+  captureKeyboard = true,
   placeholder = "Scegli una bandiera",
 }: {
   countries: Country[];
@@ -241,18 +243,67 @@ function CountryPicker({
   onChange: (code: string) => void;
   onSubmit?: () => void;
   disabled?: boolean;
+  captureKeyboard?: boolean;
   placeholder?: string;
 }) {
-  const [query, setQuery] = useState("");
+  // null indica una scelta definitiva; una stringa è il testo ancora da completare.
+  const [draft, setDraft] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [highlighted, setHighlighted] = useState(-1);
   const root = useRef<HTMLDivElement>(null);
+  const selected = countries.find((c) => c.code === value);
+  const text = draft ?? selected?.name ?? "";
+  const definitive = !!selected && draft === null;
   const options = useMemo(() => {
-    const q = query.trim().toLocaleLowerCase();
-    return countries.filter(
-      (c) =>
-        !q || `${c.name} ${c.en} ${c.code}`.toLocaleLowerCase().includes(q),
-    );
-  }, [countries, query]);
+    const q = text.trim().toLocaleLowerCase();
+    if (!q) return countries;
+    const rank = (c: Country) => {
+      const names = [c.name, c.en, c.code].map((s) => s.toLocaleLowerCase());
+      return names.includes(q) ? 0 : names.some((s) => s.startsWith(q)) ? 1 : 2;
+    };
+    return countries
+      .filter((c) =>
+        `${c.name} ${c.en} ${c.code}`.toLocaleLowerCase().includes(q),
+      )
+      .sort((a, b) => rank(a) - rank(b));
+  }, [countries, text]);
+  function choose(c: Country) {
+    setDraft(null);
+    onChange(c.code);
+    setOpen(false);
+  }
+  function edit(next: string) {
+    setHighlighted(-1);
+    setDraft(next);
+    setOpen(true);
+    if (value) onChange("");
+  }
+  function enter() {
+    if (disabled || !text.trim()) return;
+    if (definitive) onSubmit?.();
+    else {
+      const option = options[open && highlighted >= 0 ? highlighted : 0];
+      if (option) choose(option);
+    }
+  }
+  function navigate(key: string) {
+    if (!options.length) return;
+    setOpen(true);
+    setHighlighted((current) => {
+      if (!open || current < 0)
+        return key === "ArrowDown" ? 0 : options.length - 1;
+      return (
+        (current + (key === "ArrowDown" ? 1 : -1) + options.length) %
+        options.length
+      );
+    });
+  }
+  useEffect(() => {
+    if (open && highlighted >= 0)
+      root.current
+        ?.querySelector('[aria-selected="true"]')
+        ?.scrollIntoView({ block: "nearest" });
+  }, [open, highlighted]);
   useEffect(() => {
     function close(e: PointerEvent) {
       if (!root.current?.contains(e.target as Node)) setOpen(false);
@@ -261,58 +312,119 @@ function CountryPicker({
     return () => document.removeEventListener("pointerdown", close);
   }, []);
   useEffect(() => {
-    if (disabled) setOpen(false);
+    if (disabled) {
+      setOpen(false);
+      setDraft(null);
+    }
   }, [disabled]);
+  useEffect(() => {
+    function keyboard(e: KeyboardEvent) {
+      if (
+        !captureKeyboard ||
+        disabled ||
+        e.defaultPrevented ||
+        e.isComposing ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey
+      )
+        return;
+      const target = e.target instanceof Element ? e.target : null;
+      if (
+        target?.closest(
+          'input,textarea,select,[contenteditable]:not([contenteditable="false"]),[role="textbox"]',
+        )
+      )
+        return;
+      // Invio e Spazio continuano ad attivare i controlli esplicitamente a fuoco.
+      if (
+        (e.key === "Enter" || e.key === " ") &&
+        target?.closest('button,a,[role="button"],[role="option"]')
+      )
+        return;
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        navigate(e.key);
+        root.current?.querySelector("input")?.focus({ preventScroll: true });
+        return;
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (!e.repeat) enter();
+        return;
+      }
+      if (e.key.length === 1 || (e.key === "Backspace" && text)) {
+        e.preventDefault();
+        const next =
+          e.key === "Backspace"
+            ? Array.from(text).slice(0, -1).join("")
+            : text + e.key;
+        root.current?.querySelector("input")?.focus({ preventScroll: true });
+        edit(next);
+      }
+    }
+    document.addEventListener("keydown", keyboard);
+    return () => document.removeEventListener("keydown", keyboard);
+  }, [
+    captureKeyboard,
+    open,
+    highlighted,
+    disabled,
+    text,
+    definitive,
+    options,
+    onChange,
+    onSubmit,
+    value,
+  ]);
   return (
     <div className="picker" ref={root}>
       <input
         role="combobox"
         aria-expanded={open}
         aria-controls="country-options"
+        aria-autocomplete="list"
+        aria-activedescendant={
+          open && highlighted >= 0
+            ? `country-option-${options[highlighted]?.code}`
+            : undefined
+        }
         autoComplete="off"
-        enterKeyHint={open ? "next" : "send"}
+        enterKeyHint={definitive ? "send" : "next"}
         autoCorrect="off"
         spellCheck={false}
         aria-label={placeholder}
         placeholder={placeholder}
         disabled={disabled}
-        value={
-          open ? query : (countries.find((c) => c.code === value)?.name ?? "")
-        }
+        value={text}
         onFocus={() => {
-          setQuery("");
-          setOpen(true);
+          if (!definitive) setOpen(true);
         }}
-        onChange={(e) => {
-          setQuery(e.target.value);
-          setOpen(true);
-        }}
+        onChange={(e) => edit(e.target.value)}
         onKeyDown={(e) => {
+          if (e.nativeEvent.isComposing) return;
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+            navigate(e.key);
+            return;
+          }
           if (e.key === "Escape") setOpen(false);
           if (e.key !== "Enter" || e.nativeEvent.isComposing) return;
           e.preventDefault();
-          if (disabled || e.repeat) return;
-          if (open) {
-            if (options[0]) {
-              onChange(options[0].code);
-              setOpen(false);
-            }
-          } else if (value && countries.some((c) => c.code === value)) {
-            onSubmit?.();
-          }
+          if (!e.repeat) enter();
         }}
       />
       {open && (
         <div className="picker-options" role="listbox" id="country-options">
-          {options.map((c) => (
+          {options.map((c, index) => (
             <button
               type="button"
               role="option"
-              aria-selected={c.code === value}
+              id={`country-option-${c.code}`}
+              aria-selected={index === highlighted}
               key={c.code}
               onClick={() => {
-                onChange(c.code);
-                setOpen(false);
+                choose(c);
                 root.current?.querySelector("input")?.blur();
               }}
             >
@@ -329,6 +441,7 @@ export default function App() {
   const { countries, error: catalogError } = useCatalog();
   const game = useGame();
   const snap = game.snapshot;
+  const solo = snap?.mode === "solo";
   const [dialog, setDialog] = useState<"create" | "join" | null>(() =>
     new URLSearchParams(location.search).has("room") ? "join" : null,
   );
@@ -338,6 +451,8 @@ export default function App() {
   const [code, setCode] = useState(
     () => new URLSearchParams(location.search).get("room")?.toUpperCase() || "",
   );
+  const [entering, setEntering] = useState(false);
+  const entryPending = useRef(false);
   const [selected, setSelected] = useState("");
   const [solving, setSolving] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -362,22 +477,104 @@ export default function App() {
   useEffect(() => {
     setSelected("");
     setSolving(false);
-  }, [snap?.round, snap?.active, snap?.subphase, snap?.phase]);
+  }, [
+    snap?.round,
+    snap?.active,
+    snap?.subphase,
+    snap?.phase,
+    snap?.history.length,
+  ]);
   useEffect(() => {
     const viewport = window.visualViewport;
-    const resize = () =>
-      document.documentElement.style.setProperty(
-        "--viewport-height",
-        `${viewport?.height ?? window.innerHeight}px`,
-      );
+    let frame = 0;
+    function resize() {
+      const focused = document.activeElement;
+      const editing =
+        focused instanceof HTMLElement &&
+        focused.matches(
+          'input:not([readonly]):not([disabled]),textarea,[contenteditable="true"]',
+        );
+      // Il viewport visuale può conservare l'altezza della tastiera dopo il blur.
+      // Senza un campo attivo torniamo alle unità dinamiche native del browser.
+      if (editing && viewport)
+        document.documentElement.style.setProperty(
+          "--viewport-height",
+          `${viewport.height}px`,
+        );
+      else document.documentElement.style.removeProperty("--viewport-height");
+    }
+    function focusChanged() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(resize);
+    }
     resize();
     viewport?.addEventListener("resize", resize);
+    viewport?.addEventListener("scroll", resize);
     window.addEventListener("resize", resize);
+    window.addEventListener("pageshow", resize);
+    document.addEventListener("focusin", focusChanged);
+    document.addEventListener("focusout", focusChanged);
     return () => {
+      cancelAnimationFrame(frame);
       viewport?.removeEventListener("resize", resize);
+      viewport?.removeEventListener("scroll", resize);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("pageshow", resize);
+      document.removeEventListener("focusin", focusChanged);
+      document.removeEventListener("focusout", focusChanged);
     };
-  }, []);
+  }, [snap?.code, snap?.phase]);
+  useEffect(() => {
+    function shortcut(e: KeyboardEvent) {
+      if (
+        e.key !== "Enter" ||
+        e.defaultPrevented ||
+        e.repeat ||
+        e.isComposing ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey ||
+        menu ||
+        lab ||
+        !game.connected ||
+        game.busy
+      )
+        return;
+      const target = e.target instanceof Element ? e.target : null;
+      if (
+        target?.closest(
+          'input,textarea,select,[contenteditable]:not([contenteditable="false"]),button,a,[role="button"],[role="option"]',
+        )
+      )
+        return;
+      if (snap?.phase === "between_rounds" && me && !me.ready) {
+        e.preventDefault();
+        void game.command("ready");
+      } else if (
+        snap?.phase === "playing" &&
+        !solo &&
+        snap.subphase === "choose_action" &&
+        canAct &&
+        !solving
+      ) {
+        e.preventDefault();
+        void game.command("pass");
+      }
+    }
+    document.addEventListener("keydown", shortcut);
+    return () => document.removeEventListener("keydown", shortcut);
+  }, [
+    snap,
+    me,
+    solo,
+    menu,
+    lab,
+    solving,
+    canAct,
+    game.connected,
+    game.busy,
+    game.command,
+  ]);
   function leave() {
     game.leave();
     setDialog(null);
@@ -387,18 +584,29 @@ export default function App() {
   }
   async function enter(e: React.FormEvent) {
     e.preventDefault();
-    if (!dialog) return;
-    localStorage.setItem("flag-duel-nickname", nickname.trim());
-    const ack = await game.enter(
-      dialog,
-      nickname.trim(),
-      dialog === "join" ? code : undefined,
-    );
-    if (ack.ok) {
-      setDialog(null);
-      history.replaceState({}, "", location.pathname);
+    if (!dialog || entryPending.current) return;
+    entryPending.current = true;
+    setEntering(true);
+    try {
+      localStorage.setItem("flag-duel-nickname", nickname.trim());
+      if (document.activeElement instanceof HTMLElement)
+        document.activeElement.blur();
+      const ack = await game.enter(
+        dialog,
+        nickname.trim(),
+        dialog === "join" ? code : undefined,
+      );
+      if (ack.ok) {
+        requestAnimationFrame(() => window.scrollTo(0, 0));
+        setDialog(null);
+        history.replaceState({}, "", location.pathname);
+      }
+    } finally {
+      entryPending.current = false;
+      setEntering(false);
     }
   }
+
   async function copy(text: string) {
     try {
       await navigator.clipboard.writeText(text);
@@ -411,7 +619,7 @@ export default function App() {
   if (!snap)
     return (
       <main className="entry-screen">
-        <section className="entry-content">
+        <section className="entry-content" hidden={!!dialog && !game.session}>
           <div className="wordmark">
             flag<span>duel</span>
             <i />
@@ -441,19 +649,20 @@ export default function App() {
               </button>
             </div>
           )}
-          {error && (
+          {error && !dialog && (
             <p role="alert" className="error">
               {error}
             </p>
           )}
         </section>
         {dialog && !game.session && (
-          <div className="overlay">
+          <div className="entry-form-shell">
             <form className="dialog" onSubmit={enter}>
               <button
                 type="button"
                 className="icon close"
                 aria-label="Chiudi"
+                disabled={entering}
                 onClick={() => setDialog(null)}
               >
                 <X size={19} />
@@ -462,6 +671,7 @@ export default function App() {
               <label htmlFor="nickname">Nickname</label>
               <input
                 id="nickname"
+                readOnly={entering}
                 maxLength={24}
                 required
                 autoFocus
@@ -474,6 +684,7 @@ export default function App() {
                   <label htmlFor="room-code">Codice stanza</label>
                   <input
                     id="room-code"
+                    readOnly={entering}
                     maxLength={3}
                     required
                     pattern="[A-Za-z0-9]{3}"
@@ -489,7 +700,10 @@ export default function App() {
                   {error}
                 </p>
               )}
-              <button type="submit" disabled={!game.connected || game.busy}>
+              <button
+                type="submit"
+                disabled={!game.connected || game.busy || entering}
+              >
                 {dialog === "create" ? "Crea" : "Entra in stanza"}
               </button>
             </form>
@@ -582,45 +796,151 @@ export default function App() {
     return (
       <main className="entry-screen">
         <section className="lobby">
-          <span className="eyebrow">STANZA</span>
-          <h1 className="room-code" data-testid="room-code">
-            {snap.code}
-          </h1>
-          <div className="copy-row">
-            <button className="secondary" onClick={() => void copy(snap.code)}>
-              <Copy size={14} /> Codice
-            </button>
-            <button className="secondary" onClick={() => void copy(invite)}>
-              Copia link
-            </button>
+          <div
+            className="mode-selector"
+            role="radiogroup"
+            aria-label="Modalità di gioco"
+          >
+            {(
+              [
+                ["pvp", "PvP"],
+                ["solo", "Giocatore singolo"],
+              ] as const
+            ).map(([mode, label]) => (
+              <button
+                key={mode}
+                role="radio"
+                aria-checked={snap.mode === mode}
+                className="secondary mode-choice"
+                disabled={
+                  snap.hostId !== me?.id ||
+                  game.busy ||
+                  !game.connected ||
+                  (mode === "solo" && snap.players.length > 1)
+                }
+                title={
+                  mode === "solo" && snap.players.length > 1
+                    ? "La modalità singolo richiede una stanza senza ospiti"
+                    : undefined
+                }
+                onClick={() => {
+                  if (snap.mode !== mode)
+                    void game.command("set_mode", { mode });
+                }}
+              >
+                {label}
+              </button>
+            ))}
           </div>
-          <input
-            className="invite"
-            aria-label="Link d'invito selezionabile"
-            value={invite}
-            readOnly
-            onFocus={(e) => e.currentTarget.select()}
-          />
-          {copied && <small role="status">{copied}</small>}
-          <div className="lobby-players">
+          {solo ? (
+            <>
+              <h1 className="solo-title">Gioca da solo</h1>
+              <p className="waiting-host">
+                {snap.maxProbes} tentativi per indovinare.
+              </p>
+            </>
+          ) : (
+            <>
+              <span className="eyebrow">STANZA</span>
+              <h1 className="room-code" data-testid="room-code">
+                {snap.code}
+              </h1>
+              <div className="copy-row">
+                <button
+                  className="secondary"
+                  onClick={() => void copy(snap.code)}
+                >
+                  <Copy size={14} /> Codice
+                </button>
+                <button className="secondary" onClick={() => void copy(invite)}>
+                  Copia link
+                </button>
+              </div>
+              <input
+                className="invite"
+                aria-label="Link d'invito selezionabile"
+                value={invite}
+                readOnly
+                onFocus={(e) => e.currentTarget.select()}
+              />
+              {copied && <small role="status">{copied}</small>}
+            </>
+          )}
+          {snap.hostId !== me?.id && (
+            <p
+              className="lobby-settings-summary"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              data-testid="lobby-settings-summary"
+            >
+              {solo ? "Singolo" : "PvP"} · Tolleranza{" "}
+              {
+                { precise: "Precisa", standard: "Standard", broad: "Ampia" }[
+                  snap.tolerance
+                ]
+              }
+            </p>
+          )}
+          <details className="advanced-settings">
+            <summary>Impostazioni avanzate</summary>
+            <p>Tolleranza dei colori</p>
+            <div
+              className="tolerance-selector"
+              role="radiogroup"
+              aria-label="Tolleranza dei colori"
+            >
+              {(
+                [
+                  ["precise", "Precisa"],
+                  ["standard", "Standard"],
+                  ["broad", "Ampia"],
+                ] as const
+              ).map(([preset, label]) => (
+                <button
+                  key={preset}
+                  role="radio"
+                  aria-checked={snap.tolerance === preset}
+                  className="secondary mode-choice tolerance-choice"
+                  disabled={
+                    snap.hostId !== me?.id || game.busy || !game.connected
+                  }
+                  onClick={() => {
+                    if (snap.tolerance !== preset)
+                      void game.command("set_tolerance", { tolerance: preset });
+                  }}
+                >
+                  {label}
+                  <small>
+                    ΔE {colorTolerances[preset].toFixed(2).replace(".", ",")}
+                  </small>
+                </button>
+              ))}
+            </div>
+          </details>
+          <div className={`lobby-players ${solo ? "solo-player" : ""}`}>
             <span>
               {me?.nickname}
               <small>Tu</small>
             </span>
-            <span>
-              {opponent?.nickname || "In attesa…"}
-              <small>
-                {opponent
-                  ? opponent.connected
-                    ? "Connesso"
-                    : "Disconnesso"
-                  : "Condividi il codice"}
-              </small>
-            </span>
+            {!solo && (
+              <span>
+                {opponent?.nickname || "In attesa…"}
+                <small>
+                  {opponent
+                    ? opponent.connected
+                      ? "Connesso"
+                      : "Disconnesso"
+                    : "Condividi il codice"}
+                </small>
+              </span>
+            )}
           </div>
           {snap.hostId === me?.id ? (
             <button
-              disabled={!opponent?.connected || !game.connected || game.busy}
+              disabled={
+                (!solo && !opponent?.connected) || !game.connected || game.busy
+              }
               onClick={() => void game.command("start")}
             >
               Inizia la partita <ArrowRight size={17} />
@@ -666,8 +986,19 @@ export default function App() {
           className={`player opponent ${!mine && playing ? "active" : ""}`}
           data-testid="opponent-player"
         >
-          <strong>{opponent?.score ?? 0}</strong>
-          <span title={opponent?.nickname}>{opponent?.nickname}</span>
+          {solo ? (
+            <>
+              <strong data-testid="solo-attempts">
+                {snap.maxProbes - snap.history.length}
+              </strong>
+              <span>tentativi</span>
+            </>
+          ) : (
+            <>
+              <strong>{opponent?.score ?? 0}</strong>
+              <span title={opponent?.nickname}>{opponent?.nickname}</span>
+            </>
+          )}
         </div>
       </header>
       <div className="target">
@@ -717,12 +1048,14 @@ export default function App() {
             : opponent?.connected === false
               ? "Avversario disconnesso"
               : snap.phase === "between_rounds"
-                ? `${solution?.name ?? ""} · ${latest?.winner ? `${snap.players.find((p) => p.id === latest.winner)?.nickname} vince` : "Pareggio"}`
+                ? `${solution?.name ?? ""} · ${solo ? (latest?.winner ? "Indovinata" : "Tentativi esauriti") : latest?.winner ? `${snap.players.find((p) => p.id === latest.winner)?.nickname} vince` : "Pareggio"}`
                 : mine
                   ? solving
                     ? "Risposta finale"
                     : snap.subphase === "choose_probe"
-                      ? "Il tuo turno"
+                      ? solo
+                        ? "Indovina la bandiera"
+                        : "Il tuo turno"
                       : "Risolvi o passa"
                   : `Turno di ${opponent?.nickname}`}
         </p>
@@ -734,20 +1067,24 @@ export default function App() {
             {me?.ready ? "Aspetto l’avversario…" : "Prossima mano"}{" "}
             {!me?.ready && <ArrowRight size={17} />}
           </button>
-        ) : snap.subphase === "choose_probe" ? (
+        ) : solo || snap.subphase === "choose_probe" ? (
           <div className="input-row">
             <CountryPicker
               countries={available}
               value={selected}
               onChange={setSelected}
+              placeholder={
+                solo ? "Indovina la bandiera" : "Scegli una bandiera"
+              }
               onSubmit={() => {
                 if (canAct && selected)
                   void game.command("probe", { country: selected });
               }}
               disabled={!canAct}
+              captureKeyboard={!menu}
             />
             <button
-              aria-label="Sonda"
+              aria-label={solo ? "Invia tentativo" : "Sonda"}
               disabled={!canAct || !selected}
               onClick={async () => {
                 const ack = await game.command("probe", { country: selected });
@@ -766,6 +1103,7 @@ export default function App() {
                 setSelected(c);
               }}
               disabled={!canAct}
+              captureKeyboard={!menu}
               onSubmit={() => {
                 if (canAct && selected)
                   void game.command("solve", { country: selected });
@@ -827,7 +1165,12 @@ export default function App() {
       )}
       {menu && (
         <div className="overlay">
-          <section className="dialog">
+          <section
+            className="dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-label={solo ? "Menu giocatore singolo" : "Menu PvP"}
+          >
             <button
               className="icon close"
               aria-label="Chiudi menu"
@@ -835,17 +1178,16 @@ export default function App() {
             >
               <X size={19} />
             </button>
-            <span className="eyebrow">STANZA {snap.code}</span>
-            <p>Mano {snap.round}</p>
-            <button className="secondary" onClick={() => void copy(invite)}>
-              Copia invito
-            </button>
-            {copied && <small>{copied}</small>}
-            {latest && <p className="muted">Ultima mano: {latest.reason}</p>}
+            {!solo && (
+              <>
+                <span className="eyebrow">STANZA {snap.code}</span>
+                <p>Mano {snap.round}</p>
+              </>
+            )}
             <button className="secondary" onClick={leave}>
               <LogOut size={16} /> Esci dalla stanza
             </button>
-            {import.meta.env.DEV && (
+            {!solo && import.meta.env.DEV && (
               <button
                 className="text-button"
                 onClick={() => {

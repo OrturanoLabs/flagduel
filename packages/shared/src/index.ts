@@ -1,4 +1,10 @@
 import { z } from "zod";
+export const colorTolerances = {
+  precise: 0.02,
+  standard: 0.04,
+  broad: 0.1,
+} as const;
+export type ColorTolerance = keyof typeof colorTolerances;
 export const commandSchema = z
   .object({
     type: z.enum([
@@ -6,11 +12,15 @@ export const commandSchema = z
       "join",
       "resume",
       "start",
+      "set_mode",
+      "set_tolerance",
       "probe",
       "solve",
       "pass",
       "ready",
     ]),
+    tolerance: z.enum(["precise", "standard", "broad"]).optional(),
+    mode: z.enum(["pvp", "solo"]).optional(),
     nickname: z.string().trim().min(1).max(24).optional(),
     code: z
       .string()
@@ -45,7 +55,10 @@ export interface Result {
   winner: string | null;
   reason: string;
 }
+export type GameMode = "pvp" | "solo";
 export interface Snapshot {
+  mode: GameMode;
+  tolerance: ColorTolerance;
   code: string;
   version: number;
   phase: "waiting" | "playing" | "between_rounds";
